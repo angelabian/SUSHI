@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>蘇東坡</title>
+	<meta charset='UTF-8'>
+	<link rel='stylesheet' href='css/style.css' type='text/css' media='screen' />
+	<!--Bootstrap-->
+	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<link rel='shortcut icon' href='img/icon.png' />
+</head>
+
+<body background='img/vintage-concrete.png' onbeforeunload='stopAll()' onunload='stopAll()'>
+	<div class='parent'>
+		<img class='baseIMG' id='baseIMG' src='img/chibi.jpg' />
+		<img class='image1' src='img/chibi1.gif' onclick="play('chibi1')" />
+		<img class='image2' src='img/chibi2.gif' onclick="play('chibi2')" />
+		<img class='image3' src='img/chibi3.gif' onclick="play('chibi3')" />
+		<img class='image4' src='img/sushi1.gif' onclick="play('sushi1')" />
+		<div class='playPoem'>
+			<p id='playPoem'></p>
+		</div>
+	</div>
+	<div class='controllBar'>
+		<div class='playBar' id='playBar'>
+			<div class='play'></div>
+			<div class='pause'></div>
+			<div class='stop'></div>
+			<div class='YouTube' title='前往YouTube觀看'>YouTube</div>
+		</div>
+	</div>
+	<div class="youtubeVideoes">
+		<iframe id="video1" src="https://www.youtube.com/embed/D50nzA0qZLE?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video2" src="https://www.youtube.com/embed/bBMN_gOuPk8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video3" src="https://www.youtube.com/embed/ctMp0Wccc8s?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video4" src="https://www.youtube.com/embed/CQlt3-6N1P8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+	</div>
+	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+	<script src='js/index.js'></script>
+</body>
+
+</html>
