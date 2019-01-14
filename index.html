@@ -30,10 +30,11 @@
 	</div>
 	<div class='controllBar'>
 		<div class='playBar' id='playBar'>
+			<div class='playPause' onclick='playPause()'></div>
 			<div class='play'></div>
 			<div class='pause'></div>
-			<div class='stop'></div>
-			<div class='YouTube' title='前往YouTube觀看'>YouTube</div>
+			<div class='stop' onclick='stopAll()' title='停止播放'></div>
+			<div class='YouTube' onclick='gotoYouTube()' title='前往YouTube觀看'>YouTube</div>
 		</div>
 	</div>
 	<div class="youtubeVideoes">
