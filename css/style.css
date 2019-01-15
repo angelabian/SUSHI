@@ -58,6 +58,7 @@
 
 .playBar {
     display: inline-flex;
+    visibility: hidden;
     margin: 1vh auto;
 }
 
@@ -72,8 +73,8 @@
 }
 
 .stop {
-    width: 2vw;
-    height: 2vw;
+    width: 1.8vw;
+    height: 1.8vw;
     background: #3C232A;
     cursor: pointer;
     margin-right: .5vw;
@@ -81,10 +82,43 @@
 
 .YouTube {
     color: #3C232A;
-    font-size: calc(.8vw + .8vh + 1vmin);
+    font-size: calc(.7vw + .7vh + 1vmin);
     font-weight: bold;
     cursor: pointer;
     padding-left: 1vw;
+}
+
+.editBar {
+    margin: 1vh .5vw;
+}
+
+.editBar button {
+    border: .1vw #3C232A;
+    border-radius: .5vw;
+    color: #E8DCC4;
+    background: #3C232A;
+    font-size: calc(.2vw + .2vh + 1vmin);
+    padding: .5vh .5vw;
+}
+
+.editBar button:focus {
+    outline: 0;
+}
+
+#modeStatus {
+    border: .1vw rgba(60, 35, 42, .6);
+    background: rgba(60, 35, 42, .6);
+    font-size: calc(.5vw + .5vh + 1vmin);
+}
+
+#modeStatus:hover {
+    border: .1vw #3C232A;
+    background: #3C232A;
+}
+
+#uploadButtons {
+    margin: .5vh 0;
+    visibility: hidden;
 }
 
 .youtubeVideoes {

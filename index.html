@@ -30,9 +30,15 @@
 	</div>
 	<div class='controllBar'>
 		<div class='playBar' id='playBar'>
-			<div class='playPause' id='playPause' onclick='playPause()'></div>
+			<div class='playPause' id='playPause' onclick='playPause()' title='暫停/播放'></div>
 			<div class='stop' onclick='stopAll()' title='停止播放'></div>
 			<div class='YouTube' onclick='gotoYouTube()' title='前往YouTube觀看'>YouTube</div>
+		</div>
+	</div>
+	<div class='editBar'>
+		<button id='modeStatus' onclick='modeChange()' title='進行編輯'>Edit</button>
+		<div id='uploadButtons'>
+			<button id='uploadMain' onclick='test()'>Upload Main Image</button>
 		</div>
 	</div>
 	<div class="youtubeVideoes">
