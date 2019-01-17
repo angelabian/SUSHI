@@ -18,7 +18,7 @@
 </head>
 
 <body background='img/vintage-concrete.png' onbeforeunload='stopAll()' onunload='stopAll()'>
-	<div class='parent'>
+	<div class='parent' id='parent'>
 		<img class='baseIMG' id='baseIMG' src='img/chibi.jpg' />
 		<img class='image1' src='img/chibi1.gif' onclick="play('chibi1')" />
 		<img class='image2' src='img/chibi2.gif' onclick="play('chibi2')" />
@@ -35,19 +35,7 @@
 			<div class='YouTube' onclick='gotoYouTube()' title='前往YouTube觀看'>YouTube</div>
 		</div>
 	</div>
-	<div class='editBar'>
-		<button id='modeStatus' onclick='modeChange()' title='進行編輯'>Edit</button>
-	</div>
-	<div id='uploadButtons'>
-		<form action="php/uploadMain.php" method="post" enctype="multipart/form-data">
-			<input type="file" class="fileToUpload" name="fileToUpload" id="fileToUpload" />
-			<input type="submit" value="Upload Main Image" name="submit" />
-		</form>
-		<form action="php/uploadIMG.php" method="post" enctype="multipart/form-data">
-			<input type="file" class="fileToUpload" name="fileToUpload" id="fileToUpload" />
-			<input type="submit" value="Upload Image" name="submit" />
-		</form>
-	</div>
+	<div class='toTRY'><a href='indexTRY.html'>體驗親自設計</a></div>
 	<div class="youtubeVideoes">
 		<iframe id="video1" src="https://www.youtube.com/embed/D50nzA0qZLE?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 		 allowfullscreen></iframe>

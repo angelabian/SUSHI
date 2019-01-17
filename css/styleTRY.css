@@ -92,24 +92,61 @@
     padding-left: 1vw;
 }
 
-/* 體驗鈕 */
+/* 編輯區 */
 
-.toTRY a {
+.editBar {
     margin: 1vh .5vw;
-    padding: .1vh .2vw;
-    border: .1vw solid #3C232A;
-    background: transparent;
-    color: #3C232A;
-    font-size: calc(.5vw + .5vh + 1vmin);
-    font-family: 華康正顏楷體W5, 標楷體;
-    border-radius: .2vw;
-    display:inline-block;
-    cursor: pointer;
 }
 
-.toTRY a:hover {
+.editBar button:focus {
+    outline: 0;
+}
+
+#modeStatus {
+    border: .1vw #3C232A;
+    background: #3C232A;
+    color: #E8DCC4;
+    font-size: calc(.5vw + .5vh + 1vmin);
+    padding: .5vh .5vw;
+    border-radius: .5vw;
+}
+
+#modeStatus:hover {
+    border: .1vw #3C232A;
+    background: #3C232A;
+}
+
+/* 編輯區-上傳 */
+
+.updateBlock {
+    margin: .5vh .5vw;
+}
+
+#uploadArea {
+    visibility: visible;
+    display: inline-flex;
+}
+
+input[type=file] {
+    border: .1vw #3C232A;
+    border-radius: .2vw;
     color: #E8DCC4;
     background: #3C232A;
+    width: auto;
+}
+
+input[type=submit] {
+    border: .1vw #3C232A;
+    border-radius: .2vw;
+    color: #E8DCC4;
+    background: #3C232A;
+    margin: 0 .5vw;
+}
+
+/* 編輯區-設定印章 */
+
+#updateIMG {
+    border: .1vw #3C232A;
 }
 
 /* 影片 */
