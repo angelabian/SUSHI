@@ -142,11 +142,7 @@ $(document).ready(function (e) {
             cache: false,
             processData: false,
             success: function (data) {
-                var uploadOk = <? php echo $uploadOk; ?>;
-                if (uploadOk == 0) {
-
-                }
-                alert(typeof $("#baseIMG").html(data));
+                $("#baseIMG").html(data);
             },
             error: function () {
             }
