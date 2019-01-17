@@ -37,9 +37,16 @@
 	</div>
 	<div class='editBar'>
 		<button id='modeStatus' onclick='modeChange()' title='進行編輯'>Edit</button>
-		<div id='uploadButtons'>
-			<button id='uploadMain' onclick='test()'>Upload Main Image</button>
-		</div>
+	</div>
+	<div id='uploadButtons'>
+		<form action="php/uploadMain.php" method="post" enctype="multipart/form-data">
+			<input type="file" class="fileToUpload" name="fileToUpload" id="fileToUpload" />
+			<input type="submit" value="Upload Main Image" name="submit" />
+		</form>
+		<form action="php/uploadIMG.php" method="post" enctype="multipart/form-data">
+			<input type="file" class="fileToUpload" name="fileToUpload" id="fileToUpload" />
+			<input type="submit" value="Upload Image" name="submit" />
+		</form>
 	</div>
 	<div class="youtubeVideoes">
 		<iframe id="video1" src="https://www.youtube.com/embed/D50nzA0qZLE?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -51,8 +58,8 @@
 		<iframe id="video4" src="https://www.youtube.com/embed/CQlt3-6N1P8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 		 allowfullscreen></iframe>
 	</div>
-	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 	<script src='js/index.js'></script>
+	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 </body>
 
 </html>

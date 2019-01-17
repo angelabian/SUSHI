@@ -117,8 +117,30 @@
 }
 
 #uploadButtons {
-    margin: .5vh 0;
     visibility: hidden;
+    display: inline-grid;
+}
+
+input[type=file] {
+    border: .1vw #3C232A;
+    border-radius: .2vw;
+    color: #E8DCC4;
+    background: #3C232A;
+    width: auto;
+}
+
+input[type=submit] {
+    border: .1vw #3C232A;
+    border-radius: .2vw;
+    color: #E8DCC4;
+    background: #3C232A;
+    margin: 0 .5vw;
+}
+
+form {
+    margin: 1vh .5vw;
+    display: inline-flex;
+
 }
 
 .youtubeVideoes {
