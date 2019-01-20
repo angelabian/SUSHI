@@ -6,6 +6,18 @@
     left: 0;
 }
 
+#initialBaseIMG {
+    width:150px;
+    height:150px;
+    text-align:center;
+    line-height:150px;
+    font-weight: bold;
+    color: #C0C0C0;
+    background-color: #F0E8E0;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
 .baseIMG {
     width: 100%;
     position: relative;
@@ -92,7 +104,7 @@
     padding-left: 1vw;
 }
 
-/* 編輯區 */
+/* 模式切換 */
 
 .editBar {
     margin: 1vh .5vw;
@@ -116,31 +128,24 @@
     background: #3C232A;
 }
 
-/* 編輯區-上傳 */
+/* 編輯區 */
 
-.updateBlock {
+#updateBlock {
     margin: .5vh .5vw;
 }
 
-#uploadArea {
-    visibility: visible;
-    display: inline-flex;
-}
-
-input[type=file] {
+#uploadIMGs input {
+    outline: 0;
     border: .1vw #3C232A;
     border-radius: .2vw;
     color: #E8DCC4;
     background: #3C232A;
-    width: auto;
+    margin-right: .5vw;
 }
 
-input[type=submit] {
-    border: .1vw #3C232A;
-    border-radius: .2vw;
-    color: #E8DCC4;
-    background: #3C232A;
-    margin: 0 .5vw;
+form {
+    display: flex;
+    margin: .3vh 0;
 }
 
 /* 編輯區-設定印章 */

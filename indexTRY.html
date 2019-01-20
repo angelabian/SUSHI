@@ -18,48 +18,51 @@
 </head>
 
 <body background='img/vintage-concrete.png' onbeforeunload='stopAll()' onunload='stopAll()'>
-	<form id="uploadForm" action="php/uploadMain.php" method="post">
-		<div class='parent' id='parent'>
-			<div id='baseIMG'><img class='baseIMG' src='img/chibi.jpg' /></div>
-			<img class='image1' src='img/chibi1.gif' onclick="play('chibi1')" />
-			<img class='image2' src='img/chibi2.gif' onclick="play('chibi2')" />
-			<img class='image3' src='img/chibi3.gif' onclick="play('chibi3')" />
-			<img class='image4' src='img/sushi1.gif' onclick="play('sushi1')" />
-			<div class='playPoem'>
-				<p id='playPoem'></p>
-			</div>
+	<div class='parent' id='parent'>
+		<div id='baseIMG'><div id='initialBaseIMG'></div></div>
+		<img class='image1' src='img/chibi1.gif' onclick="play('chibi1')" />
+		<img class='image2' src='img/chibi2.gif' onclick="play('chibi2')" />
+		<img class='image3' src='img/chibi3.gif' onclick="play('chibi3')" />
+		<img class='image4' src='img/sushi1.gif' onclick="play('sushi1')" />
+		<div class='playPoem'>
+			<p id='playPoem'></p>
 		</div>
-		<div class='controllBar'>
-			<div class='playBar' id='playBar'>
-				<div class='playPause' id='playPause' onclick='playPause()' title='暫停/播放'></div>
-				<div class='stop' onclick='stopAll()' title='停止播放'></div>
-				<div class='YouTube' onclick='gotoYouTube()' title='前往YouTube觀看'>YouTube</div>
-			</div>
+	</div>
+	<div class='controllBar'>
+		<div class='playBar' id='playBar'>
+			<div class='playPause' id='playPause' onclick='playPause()' title='暫停/播放'></div>
+			<div class='stop' onclick='stopAll()' title='停止播放'></div>
+			<div class='YouTube' onclick='gotoYouTube()' title='前往YouTube觀看'>YouTube</div>
 		</div>
-		<div class='editBar'>
-			<button id='modeStatus' onclick='modeChange()' title='退出編輯'>View</button>
-		</div>
-		<div class='updateBlock'>
-			<div id='uploadArea'>
-				<input name="userImage" type="file" class="inputFile" /><br />
+	</div>
+	<div class='editBar'>
+		<button id='modeStatus' onclick='modeChange()' title='退出編輯'>View</button>
+	</div>
+	<div id='updateBlock'>
+		<div id='uploadIMGs'>
+			<form id="uploadMain" action="php/uploadMain.php" method="post">
+				<input name="userImage" type="file" class="inputFile" />
 				<input type="submit" value="Submit" class="btnSubmit" />
-			</div>
+			</form>
+			<form id="uploadForm" action="php/uploadIMG.php" method="post">
+				<input name="userImage" type="file" class="inputFile" />
+				<input type="submit" value="Submit" class="btnSubmit" />
+			</form>
 		</div>
-		<div id='updateIMG'>
-			<img id='editIMG' />
-		</div>
-		</div>
-		<div class="youtubeVideoes">
-			<iframe id="video1" src="https://www.youtube.com/embed/D50nzA0qZLE?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			 allowfullscreen></iframe>
-			<iframe id="video2" src="https://www.youtube.com/embed/bBMN_gOuPk8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			 allowfullscreen></iframe>
-			<iframe id="video3" src="https://www.youtube.com/embed/ctMp0Wccc8s?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			 allowfullscreen></iframe>
-			<iframe id="video4" src="https://www.youtube.com/embed/CQlt3-6N1P8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			 allowfullscreen></iframe>
-		</div>
-	</form>
+	</div>
+	<div id='updateIMG'>
+		<img id='editIMG' />
+	</div>
+	<div class="youtubeVideoes">
+		<iframe id="video1" src="https://www.youtube.com/embed/D50nzA0qZLE?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video2" src="https://www.youtube.com/embed/bBMN_gOuPk8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video3" src="https://www.youtube.com/embed/ctMp0Wccc8s?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video4" src="https://www.youtube.com/embed/CQlt3-6N1P8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+	</div>
 	<script src='js/indexTRY.js'></script>
 	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 </body>
