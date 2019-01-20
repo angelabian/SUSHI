@@ -182,9 +182,9 @@ function editIMG(e) {
 
 function checkAllIMGs() {
     var images = document.getElementById('images').getElementsByTagName('img');
-    images.forEach(element => {
-        if ((' ' + element.className + ' ').indexOf(' editIMG ') > -1){
-            element.className = btn.className.replace(" editIMG", "");
+    for (var i = 0; i < images.length; i++) {
+        if ((' ' + images[i].className + ' ').indexOf(' editIMG ') > -1){
+            images[i].className = btn.className.replace(" editIMG", "");
         }
-    });
+    }
 }
