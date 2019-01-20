@@ -1,11 +1,11 @@
 <?php
 $target_dir = "../img/customer/";
-$target_file = $target_dir . basename($_FILES["userImage"]["name"]);
+$target_file = $target_dir . basename($_FILES["mainImage"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["userImage"]["tmp_name"]);
+    $check = getimagesize($_FILES["mainImage"]["tmp_name"]);
     if($check !== false) {
         echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
@@ -15,7 +15,7 @@ if(isset($_POST["submit"])) {
     }
 }
 // Check file size
-if ($_FILES["userImage"]["size"] > 500000) {
+if ($_FILES["mainImage"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
@@ -30,9 +30,9 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-    if (move_uploaded_file($_FILES["userImage"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($_FILES["mainImage"]["tmp_name"], $target_file)) {
         ?>
-        <img class='baseIMG' src="<?php echo "img/customer/".$_FILES['userImage']['name']; ?>" />
+        <img class='baseIMG' src="<?php echo "img/customer/".$_FILES['mainImage']['name']; ?>" />
         <?php
     } else {
         echo "Sorry, there was an error uploading your file.";

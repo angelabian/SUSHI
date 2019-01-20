@@ -153,4 +153,24 @@ $(document).ready(function (e) {
             }
         });
     }));
+    $("#uploadImages").on('submit', (function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "php/uploadIMG.php",
+            type: "POST",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data) {
+                if (data.substring(0, 5) == 'Sorry') {
+                    alert(data);
+                } else {
+                    $("#images").append(data);
+                }
+            },
+            error: function () {
+            }
+        });
+    }));
 });
