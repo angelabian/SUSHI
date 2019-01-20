@@ -19,12 +19,10 @@
 
 <body background='img/vintage-concrete.png' onbeforeunload='stopAll()' onunload='stopAll()'>
 	<div class='parent' id='parent'>
-		<div id='baseIMG'><div id='initialBaseIMG'>請上傳底圖</div></div>
+		<div id='baseIMG'>
+			<div id='initialBaseIMG'>請上傳底圖</div>
+		</div>
 		<div id='images'></div>
-		<img class='image1' src='img/chibi1.gif' onclick="play('chibi1')" />
-		<img class='image2' src='img/chibi2.gif' onclick="play('chibi2')" />
-		<img class='image3' src='img/chibi3.gif' onclick="play('chibi3')" />
-		<img class='image4' src='img/sushi1.gif' onclick="play('sushi1')" />
 		<div class='playPoem'>
 			<p id='playPoem'></p>
 		</div>
@@ -50,9 +48,8 @@
 				<input type="submit" value="圖案上傳" class="btnSubmit" />
 			</form>
 		</div>
-	</div>
-	<div id='updateIMG'>
-		<img id='editIMG' />
+		<div id='updateIMG'>
+		</div>
 	</div>
 	<div class="youtubeVideoes">
 		<iframe id="video1" src="https://www.youtube.com/embed/D50nzA0qZLE?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

@@ -174,3 +174,17 @@ $(document).ready(function (e) {
         });
     }));
 });
+
+function editIMG(e) {
+    checkAllIMGs();
+    e.className += ' editIMG';
+}
+
+function checkAllIMGs() {
+    var images = document.getElementById('images').getElementsByTagName('img');
+    images.forEach(element => {
+        if ((' ' + element.className + ' ').indexOf(' editIMG ') > -1){
+            element.className = btn.className.replace(" editIMG", "");
+        }
+    });
+}
