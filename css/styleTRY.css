@@ -17,7 +17,6 @@
     font-family: 華康正顏楷體W5, 標楷體;
     border-style: dashed;
     border-width: .5vw;
-    margin: .1vw;
 }
 
 .baseIMG {
@@ -122,6 +121,7 @@
 
 #updateBlock {
     margin: .5vh .5vw;
+    display: inline-flex;
 }
 
 #uploadIMGs input {
@@ -142,6 +142,16 @@ form {
 
 #updateIMG {
     border: .1vw #3C232A;
+    font-family: 華康正顏楷體W5, 標楷體;
+    font-size: calc(.5vw + .5vh + 1vmin);
+    margin: 0 2vw;
+    display: inline-flex;
+    visibility: hidden;
+}
+
+#updateIMG div {
+    margin: 0 .5vw;
+    cursor: pointer;
 }
 
 /* 影片 */
