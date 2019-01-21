@@ -1,3 +1,12 @@
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+body button:focus {
+    outline: 0;
+}
+
 /* 主要區域 */
 
 .parent {
@@ -34,11 +43,26 @@
     bottom: 0;
     left: 0;
     right: 0;
+    display: inline-flex;
 }
 
-#images img {
+.imagesHeader {
+    position: absolute;
+    z-index: 9;
+}
+
+.imagesHeader:hover {
+    -moz-box-shadow: 0 0 .5vw #888;
+    -webkit-box-shadow: 0 0 .5vw#888;
+    box-shadow: 0 0 .5vw #888;
+}
+
+.images {
+    position: relative;
+    z-index: 10;
     max-width: 100%;
     max-height: 100%;
+    width: auto;
     cursor: pointer;
 }
 
@@ -99,10 +123,6 @@
     margin: 1vh .5vw;
 }
 
-.editBar button:focus {
-    outline: 0;
-}
-
 #modeStatus {
     border: .1vw #3C232A;
     background: #3C232A;
@@ -144,14 +164,28 @@ form {
     border: .1vw #3C232A;
     font-family: 華康正顏楷體W5, 標楷體;
     font-size: calc(.5vw + .5vh + 1vmin);
+    color: #3C232A;
     margin: 0 2vw;
     display: inline-flex;
     visibility: hidden;
 }
 
 #updateIMG div {
-    margin: 0 .5vw;
+    text-align: center;
     cursor: pointer;
+    margin: .1vh 0 0 .5vw;
+    border-radius: 999em;
+    border: solid #3C232A;
+    width: 30px;
+    height: 30px;
+    font-size: calc(.5vh + .5vh + 1vmin);
+    font-weight: bold;
+    border-width: medium;
+}
+
+#updateIMG div:hover {
+    color: #E8DCC4;
+    background: #3C232A;
 }
 
 /* 影片 */
