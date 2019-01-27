@@ -32,7 +32,7 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["userImage"]["tmp_name"], $target_file)) {
         ?>
-        <div class='imagesHeader' onclick='draDIV(this)'><img class='images' onclick='editIMG(this)' title='點一下即可編輯' src="<?php echo "img/customer/".$_FILES['userImage']['name']; ?>" /></div>
+        <div class='imagesHeader' onclick='draDIV(this)'><img class='image' onclick='editIMG(this)' title='點一下即可編輯' src="<?php echo "img/customer/".$_FILES['userImage']['name']; ?>" /></div>
         <?php
     } else {
         echo "Sorry, there was an error uploading your file.";
