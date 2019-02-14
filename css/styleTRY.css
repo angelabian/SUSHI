@@ -145,7 +145,7 @@ body button:focus {
 
 #uploadIMGs input {
     outline: 0;
-    border: .1vw #3C232A;
+    border: 0;
     border-radius: .2vw;
     color: #E8DCC4;
     background: #3C232A;
@@ -157,10 +157,9 @@ form {
     margin: .3vh 0;
 }
 
-/* 編輯區-設定印章 */
+/* 編輯區-設定圖案 */
 
 #updateIMG {
-    border: .1vw #3C232A;
     font-family: 華康正顏楷體W5, 標楷體;
     font-size: calc(.5vw + .5vh + 1vmin);
     color: #3C232A;
@@ -169,7 +168,11 @@ form {
     visibility: hidden;
 }
 
-#updateIMG div {
+#imgZoom {
+    display: inline-flex;
+}
+
+#imgZoom div {
     text-align: center;
     cursor: pointer;
     margin: .1vh 0 0 .5vw;
@@ -182,13 +185,43 @@ form {
     border-width: medium;
 }
 
-#updateIMG div:hover {
+#imgZoom div:hover {
     color: #E8DCC4;
     background: #3C232A;
 }
 
+#videoURL {
+    margin-left: 2vw;
+    display: -webkit-box;
+}
+
+#videoURL input {
+    color: #3C232A;
+    background: transparent;
+    outline: 0;
+}
+
+.save {
+    border: .1vw solid #3C232A;
+    background: transparent;
+    color: #3C232A;
+    font-size: calc(.5vw + .5vh + 1vmin);
+    border-radius: .5vw;
+    margin: 0 .2vw;
+}
+
+.save:hover {
+    background: #3C232A;
+    color: #E8DCC4;
+}
+
+.save:active {
+    border: transparent;
+    background: rgba(60, 35, 42, .9);
+}
+
 /* 影片 */
 
-.youtubeVideoes {
+#youtubeVideoes {
     display: none;
 }

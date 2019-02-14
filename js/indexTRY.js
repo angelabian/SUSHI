@@ -1,7 +1,3 @@
-var video1;
-var video2;
-var video3;
-var video4;
 var playPoem = document.getElementById('playPoem'); /** 跑馬燈文字區 */
 var youtubeSRC; /** 紀錄當前影片網址，前往YouTube觀看用 */
 var marquee; /** 跑馬燈，播放/暫停用 */
@@ -11,73 +7,55 @@ var modeStatus = document.getElementById('modeStatus'); /** 預覽/編輯 切換
 var baseIMG = document.getElementById('baseIMG'); /** 底圖 */
 var updateBlock = document.getElementById('updateBlock'); /** 編輯區，visibility：visible/hidden */
 var updateIMG; /** 當前編輯圖片，放大縮小用 */
+var videoArray = JSON.parse('[]'); /** 放影片網址{image:圖片名稱,video:網址} */
+var nowVideo = document.getElementById('youtubeURL'); /** 現正編輯圖案的影片網址 */
+var nowIndex; /** 現正編輯圖案的影片index */
+var videoFrame = document.getElementById('videoFrame'); /** 影片區(隱藏) */
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
     // create the global player from the specific iframe (#video)
-    video1 = new YT.Player('video1', {
-        events: {
-            // call this function when player is ready to use
-            'onReady': play
-        }
-    });
-    video2 = new YT.Player('video2', {
-        events: {
-            'onReady': play
-        }
-    });
-    video3 = new YT.Player('video3', {
-        events: {
-            'onReady': play
-        }
-    });
-    video4 = new YT.Player('video4', {
+    player = new YT.Player('videoFrame', {
         events: {
             'onReady': play
         }
     });
 }
 
-function play(playID) {
-    stopAll();
-    var wishDelay = '85';
-    if (document.getElementById('baseIMG').offsetHeight < 485) {
-        wishDelay = '130';
-    }
-    var poemContent = "<marquee id='Marquee' direction='up' scrolldelay='" + wishDelay + "' scrollamount='1' behavior='scroll' loop=1 >";
-    if (playID == 'chibi1') {
-        video1.playVideo();
-        playPoem.innerHTML = poemContent + poem1;
-        youtubeSRC = 'https://youtu.be/D50nzA0qZLE';
-        player = video1;
-    } else if (playID == 'chibi2') {
-        video2.playVideo();
-        playPoem.innerHTML = poemContent + poem2;
-        youtubeSRC = 'https://youtu.be/bBMN_gOuPk8';
-        player = video2;
-    } else if (playID == 'chibi3') {
-        video3.playVideo();
-        poemContent = "<marquee id='Marquee' direction='up' scrolldelay='130' scrollamount='2' behavior='scroll' loop=1 >"
-        if (document.getElementById('baseIMG').offsetHeight < 485) {
-            poemContent = "<marquee id='Marquee' direction='up' scrolldelay='100' scrollamount='1' behavior='scroll' loop=1 >"
+function getVideoID(thisElement) {
+    var imgName = thisElement.src.replace(window.location.origin + '/SUSHI/img/customer/', ''); /** 取得圖片名稱.格式 */
+    var position = imgName.indexOf('.');
+    var nowIMG = imgName.substring(0, position);
+    var indexHere;
+    for (var i = 0; i < videoArray.length; i++) {
+        if (videoArray[i].image == nowIMG) {
+            indexHere = i;
+            break;
         }
-        playPoem.innerHTML = poemContent + poem3;
-        youtubeSRC = 'https://youtu.be/ctMp0Wccc8s';
-        player = video3;
-    } else if (playID == 'sushi1') {
-        video4.playVideo();
-        playPoem.innerHTML = poemContent + poem4;
-        youtubeSRC = 'https://youtu.be/CQlt3-6N1P8';
-        player = video4;
     }
-    if (playID != undefined && playID.length > 0) {
-        document.getElementById('playBar').style.visibility = 'visible';
-        document.getElementById('Marquee').style.height = (document.getElementById('baseIMG').offsetHeight * 0.55).toString() + 'px';
+    var videoHere = videoArray[indexHere].video;
+    var videoID;
+    if (videoHere.startsWith("https://www.youtube.com/watch?")) {
+        videoID = videoHere.substr(videoHere.indexOf("v=") + 2, 11);
+    } else if (videoHere.startsWith("https://www.youtube.com/embed/")) {
+        videoID = videoHere.replace("https://www.youtube.com/embed/", "");
+        videoID = videoID.substring(0, 11);
+    } else if (videoHere.startsWith("https://youtu.be/")) {
+        videoID = videoHere.replace("https://youtu.be/", "");
+        videoID = videoID.substring(0, 11);
     }
-    marquee = document.getElementById('Marquee');
+    return videoID;
+}
+
+function play(e) {
+    var thisVideoID = getVideoID(e);
+    youtubeSRC = "https://youtu.be/" + thisVideoID;
+    player.playVideo();
+    document.getElementById('playBar').style.visibility = 'visible';
     nowStatus = 1;
 }
 
+/** 暫停/播放 → 按鍵轉換、跑馬燈文字、影片(聲音) */
 function playPause() {
     if (nowStatus == 1) {
         document.getElementById('playPause').style.cssText = 'height: 2vw;border-style: solid;border-width: 1vw 0 1vw 1.6vw;border-color: transparent transparent transparent #3C232A;cursor: pointer;margin-right: .5vw;';
@@ -95,10 +73,7 @@ function playPause() {
 function stopAll() {
     document.getElementById('playBar').style.visibility = 'hidden';
     playPoem.innerHTML = '';
-    video1.stopVideo();
-    video2.stopVideo();
-    video3.stopVideo();
-    video4.stopVideo();
+    player.stopVideo();
     youtubeSRC = '';
 }
 
@@ -117,9 +92,10 @@ function modeChange() {
     if (modeStatus.innerText == 'Edit') {
         modeStatus.innerText = 'View';
         modeStatus.style.backgroundColor = '#3C232A';
-        stopAll();
         modeStatus.title = '退出編輯';
         updateBlock.style.visibility = 'visible';
+        document.getElementById('playBar').style.visibility = 'hidden';
+        editView(1);
     } else if (modeStatus.innerText == 'View') {
         modeStatus.innerText = 'Edit';
         modeStatus.style.backgroundColor = 'rgba(60, 35, 42, .6)';
@@ -127,7 +103,21 @@ function modeChange() {
         updateBlock.style.visibility = 'hidden';
         checkAllIMGs();
         document.getElementById('updateIMG').style.visibility = 'hidden';
+        editView(0);
     }
+}
+
+/** 圖案觸發程式切換 */
+function editView(status) {
+    var originEles = document.getElementById("images").innerHTML;
+    if (status == 0) {
+        var newEles = originEles.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
+        newEles = newEles.replace(/onclick="editIMG\(this\)"/g, 'onclick="play(this)"');
+    } else if (status == 1) {
+        var newEles = originEles.replace(/onclick=""/g, 'onclick="draDIV(this)"');
+        newEles = newEles.replace(/onclick="play\(this\)"/g, 'onclick="editIMG(this)"');
+    }
+    document.getElementById("images").innerHTML = newEles;
 }
 
 /** 上傳圖片 PHP處理 */
@@ -182,6 +172,31 @@ function editIMG(e) {
     e.className += ' editIMG';
     document.getElementById('updateIMG').style.visibility = 'visible';
     updateIMG = e;
+    var imgName = updateIMG.src.replace(window.location.origin + '/SUSHI/img/customer/', ''); /** 取得圖片名稱 */
+    var position = imgName.indexOf('.');
+    var nowIMG = imgName.substring(0, position);
+    if (videoArray.length == 0) {
+        videoArray.push({ image: nowIMG, video: '', player: undefined });
+        nowVideo.value = '';
+        nowIndex = 0;
+        $("#youtubeVideoes").append('<iframe id="' + nowIMG + '" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"        allowfullscreen></iframe>');
+    } else {
+        var hasValue = 0;
+        for (var i = 0; i < videoArray.length; i++) {
+            if (videoArray[i].image == nowIMG) {
+                nowVideo.value = videoArray[i].video;
+                hasValue++;
+                nowIndex = i;
+                break;
+            }
+        }
+        if (hasValue == 0) {
+            videoArray.push({ image: nowIMG, video: '', player: undefined });
+            nowIndex = videoArray.length - 1;
+            nowVideo.value = '';
+            $("#youtubeVideoes").append('<iframe id="' + nowIMG + '" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"        allowfullscreen></iframe>');
+        }
+    }
 }
 
 /** 檢查所有圖片，拿掉editIMG類別(class)*/
@@ -210,7 +225,6 @@ function minify() {
 
 /** 拖曳圖案 */
 function draDIV(elmnt) {
-    console.log(elmnt);
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     elmnt.onmousedown = dragMouseDown;
 
@@ -242,5 +256,14 @@ function draDIV(elmnt) {
         /* stop moving when mouse button is released:*/
         document.onmouseup = null;
         document.onmousemove = null;
+    }
+}
+
+/** 儲存網址至videoArray */
+function saveURL() {
+    if (nowVideo.value.startsWith("https://www.youtube.com/watch?") || nowVideo.value.startsWith("https://www.youtube.com/embed/") || nowVideo.value.startsWith("https://youtu.be/")) {
+        videoArray[nowIndex].video = nowVideo.value;
+    } else {
+        alert('請確認Youtube網址是否正確');
     }
 }

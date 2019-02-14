@@ -49,19 +49,20 @@
 			</form>
 		</div>
 		<div id='updateIMG'>
-			圖案縮放
-			<div onclick="magnify()">+</div>
-			<div onclick="minify()">-</div>
+			<div id='imgZoom'>
+				圖案縮放
+				<div onclick="magnify()">+</div>
+				<div onclick="minify()">-</div>
+			</div>
+			<div id='videoURL'>
+				YouTube網址：
+				<input id='youtubeURL' value="" />
+				<button class='save' onclick='saveURL()'>儲存</button>
+			</div>
 		</div>
 	</div>
-	<div class="youtubeVideoes">
-		<iframe id="video1" src="https://www.youtube.com/embed/D50nzA0qZLE?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		 allowfullscreen></iframe>
-		<iframe id="video2" src="https://www.youtube.com/embed/bBMN_gOuPk8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		 allowfullscreen></iframe>
-		<iframe id="video3" src="https://www.youtube.com/embed/ctMp0Wccc8s?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		 allowfullscreen></iframe>
-		<iframe id="video4" src="https://www.youtube.com/embed/CQlt3-6N1P8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+	<div id="youtubeVideoes">
+		<iframe id="videoFrame" src="https://www.youtube.com/embed/xG-oyYgT77Y?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 		 allowfullscreen></iframe>
 	</div>
 	<script src='js/indexTRY.js'></script>
