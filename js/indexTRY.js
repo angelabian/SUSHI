@@ -48,14 +48,17 @@ function getVideoID(thisElement) {
 }
 
 function play(e) {
+    stopAll();
     var thisVideoID = getVideoID(e);
+    player.loadVideoById(thisVideoID);
     youtubeSRC = "https://youtu.be/" + thisVideoID;
-    player.playVideo();
     document.getElementById('playBar').style.visibility = 'visible';
     nowStatus = 1;
+    document.getElementById('playPause').style.cssText = 'width: 2vw;height: 2vw;border-style: double;border-width: 0 0 0 1vw;border-color: #3C232A;cursor: pointer;margin-right: .5vw;';
+    player.playVideo();
 }
 
-/** 暫停/播放 → 按鍵轉換、跑馬燈文字、影片(聲音) */
+/** 0-暫停/1-播放 → 按鍵轉換、跑馬燈文字、影片(聲音) */
 function playPause() {
     if (nowStatus == 1) {
         document.getElementById('playPause').style.cssText = 'height: 2vw;border-style: solid;border-width: 1vw 0 1vw 1.6vw;border-color: transparent transparent transparent #3C232A;cursor: pointer;margin-right: .5vw;';
