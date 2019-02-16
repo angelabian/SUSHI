@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>詩人的腳蹤</title>
+	<meta charset='UTF-8'>
+	<link rel='stylesheet' href='css/style1.css' type='text/css' media='screen' />
+	<!--Bootstrap-->
+	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<link rel='shortcut icon' href='img/icon.png' />
+</head>
+
+<body background='img/vintage-concrete.png' onbeforeunload='stopAll()' onunload='stopAll()' unselectable="on">
+	<div class='parent' id='parent'>
+		<img class='baseIMG' id='baseIMG' src='img/map.png' />
+		<img id="poemIMG" src="" />
+		<img class='image1' src='img/foot print.png' onclick="play('footprint')" />
+		<div class='playPoem'>
+			<p id='playPoem'></p>
+		</div>
+	</div>
+	<div class='controllBar'>
+		<div class='playBar' id='playBar'>
+			<div class='playPause' id='playPause' onclick='playPause()' title='暫停/播放'></div>
+			<div class='stop' onclick='stopAll()' title='停止播放'></div>
+			<div class='YouTube' onclick='gotoYouTube()' title='前往YouTube觀看'>YouTube</div>
+		</div>
+	</div>
+	<div class='toTRY'><a href='indexTRY.html'>來體驗看看！</a></div>
+	<div class="youtubeVideoes">
+		<iframe id="video1" src="https://www.youtube.com/embed/iCwKqC8vJNU?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video2" src="https://www.youtube.com/embed/bBMN_gOuPk8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video3" src="https://www.youtube.com/embed/ctMp0Wccc8s?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+		<iframe id="video4" src="https://www.youtube.com/embed/CQlt3-6N1P8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 allowfullscreen></iframe>
+	</div>
+	<script src='js/index1.js'></script>
+	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+</body>
+
+</html>

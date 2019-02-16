@@ -1,0 +1,128 @@
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+/* 主要區域 */
+
+.parent {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.baseIMG {
+    max-width: 50%;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.image1 {
+    position: absolute;
+    max-width: 1.5vw;
+    cursor: pointer;
+    top: 56%;
+    left: 28%;
+}
+
+.image2 {
+    position: absolute;
+    max-width: 3vw;
+    top: 38.7%;
+    right: 42vw;
+}
+
+.image3 {
+    position: absolute;
+    max-width: 3vw;
+    bottom: 38.9%;
+    left: 20vw;
+}
+
+.image4 {
+    position: absolute;
+    max-width: 3vw;
+    bottom: 22%;
+    right: 15vw;
+}
+
+.playPoem {
+    position: absolute;
+    width: 35vw;
+    top: 3.9%;
+    right: 0;
+}
+
+#poemIMG {
+}
+
+.parent p {
+    color: #3C232A;
+    font-size: calc(.6vw + .6vh + 1vmin);
+    font-family: 華康正顏楷體W5, 標楷體;
+}
+
+/* 影片控制區 */
+
+.controllBar {
+    text-align: center;
+}
+
+.playBar {
+    display: inline-flex;
+    visibility: hidden;
+    margin: 1vh auto;
+}
+
+.playPause {
+    width: 2vw;
+    height: 2vw;
+    border-style: double;
+    border-width: 0 0 0 1vw;
+    border-color: #3C232A;
+    cursor: pointer;
+    margin-right: .5vw;
+}
+
+.stop {
+    width: 1.8vw;
+    height: 1.8vw;
+    background: #3C232A;
+    cursor: pointer;
+    margin-right: .5vw;
+}
+
+.YouTube {
+    color: #3C232A;
+    font-size: calc(.7vw + .7vh + 1vmin);
+    font-weight: bold;
+    cursor: pointer;
+    padding-left: 1vw;
+}
+
+/* 體驗鈕 */
+
+.toTRY a {
+    margin: 1vh .5vw;
+    padding: .1vh .2vw;
+    border: .1vw solid #3C232A;
+    background: transparent;
+    color: #3C232A;
+    font-size: calc(.5vw + .5vh + 1vmin);
+    font-family: 華康正顏楷體W5, 標楷體;
+    border-radius: .2vw;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toTRY a:hover {
+    color: #E8DCC4;
+    background: #3C232A;
+}
+
+/* 影片 */
+
+.youtubeVideoes {
+    display: none;
+}
