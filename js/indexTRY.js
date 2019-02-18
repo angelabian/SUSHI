@@ -93,6 +93,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 /** 預覽/編輯 切換 */
 function modeChange() {
     if (modeStatus.innerText == 'Edit') {
+        stopAll();
         modeStatus.innerText = 'View';
         modeStatus.style.backgroundColor = '#3C232A';
         modeStatus.title = '退出編輯';
