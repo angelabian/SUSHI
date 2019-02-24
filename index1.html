@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>詩人的腳蹤</title>
+	<title>杜甫的腳蹤</title>
 	<meta charset='UTF-8'>
 	<link rel='stylesheet' href='css/style1.css' type='text/css' media='screen' />
 	<!--Bootstrap-->
@@ -20,30 +20,20 @@
 <body background='img/vintage-concrete.png' onbeforeunload='stopAll()' onunload='stopAll()' unselectable="on">
 	<div class='parent' id='parent'>
 		<img class='baseIMG' id='baseIMG' src='img/map.png' />
-		<img id="poemIMG" src="" />
-		<img class='image1' src='img/foot print.png' onclick="play('footprint')" />
-		<div class='playPoem'>
-			<p id='playPoem'></p>
-		</div>
-	</div>
-	<div class='controllBar'>
-		<div class='playBar' id='playBar'>
-			<div class='playPause' id='playPause' onclick='playPause()' title='暫停/播放'></div>
-			<div class='stop' onclick='stopAll()' title='停止播放'></div>
-			<div class='YouTube' onclick='gotoYouTube()' title='前往YouTube觀看'>YouTube</div>
-		</div>
+		<iframe id="youtube" src="https://www.youtube.com/embed/PBH7JY3Ldgk?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		 width='auto' allowfullscreen></iframe>
+		<p id='description'></p>
+		<img class='image1' src='img/foot print.png' onclick="play('footprint1')" title="唐 長安城" />
+		<img class='image2' src='img/foot print.png' onclick="play('footprint2')" title="成都草堂" />
+		<img class='image3' src='img/foot print.png' onclick="play('footprint3')" title="四川梓州" />
+		<img class='image4' src='img/foot print.png' onclick="play('footprint4')" title="重慶白帝城" />
+		<img class='image5' src='img/foot print.png' onclick="play('footprint5')" title="唐 秦州" />
+		<img class='image6' src='img/foot print.png' onclick="play('footprint6')" title="長沙" />
+		<img class='image7' src='img/foot print.png' onclick="play('footprint7')" title="大明湖歷下亭" />
+		<img class='image8' src='img/foot print.png' onclick="play('footprint8')" title="唐 渝州忠軸" />
+		<img class='image9' src='img/foot print.png' onclick="play('footprint9')" title="唐 石堡城" />
 	</div>
 	<div class='toTRY'><a href='indexTRY.html'>來體驗看看！</a></div>
-	<div class="youtubeVideoes">
-		<iframe id="video1" src="https://www.youtube.com/embed/iCwKqC8vJNU?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		 allowfullscreen></iframe>
-		<iframe id="video2" src="https://www.youtube.com/embed/bBMN_gOuPk8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		 allowfullscreen></iframe>
-		<iframe id="video3" src="https://www.youtube.com/embed/ctMp0Wccc8s?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		 allowfullscreen></iframe>
-		<iframe id="video4" src="https://www.youtube.com/embed/CQlt3-6N1P8?enablejsapi=1&html5=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		 allowfullscreen></iframe>
-	</div>
 	<script src='js/index1.js'></script>
 	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 </body>

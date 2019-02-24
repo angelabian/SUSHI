@@ -12,7 +12,7 @@ body {
 }
 
 .baseIMG {
-    max-width: 50%;
+    width: 100%;
     position: relative;
     top: 0;
     left: 0;
@@ -20,46 +20,100 @@ body {
 
 .image1 {
     position: absolute;
-    max-width: 1.5vw;
+    max-width: 1vw;
     cursor: pointer;
-    top: 56%;
-    left: 28%;
+    top: 59%;
+    left: 25.5%;
 }
 
 .image2 {
     position: absolute;
-    max-width: 3vw;
-    top: 38.7%;
-    right: 42vw;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 65.5%;
+    left: 21.5%;
 }
 
 .image3 {
     position: absolute;
-    max-width: 3vw;
-    bottom: 38.9%;
-    left: 20vw;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 64.5%;
+    left: 22.5%;
 }
 
 .image4 {
     position: absolute;
-    max-width: 3vw;
-    bottom: 22%;
-    right: 15vw;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 64.5%;
+    left: 24.5%;
 }
 
-.playPoem {
+.image5 {
     position: absolute;
-    width: 35vw;
-    top: 3.9%;
-    right: 0;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 56%;
+    left: 22%;
 }
 
-#poemIMG {
+.image6 {
+    position: absolute;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 73%;
+    left: 28%;
+}
+
+.image7 {
+    position: absolute;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 52%;
+    left: 31%;
+}
+
+.image8 {
+    position: absolute;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 68%;
+    left: 24.5%;
+}
+
+.image9 {
+    position: absolute;
+    max-width: 1vw;
+    cursor: pointer;
+    top: 51%;
+    left: 19.5%;
+}
+
+#youtube {
+    position: absolute;
+    visibility: hidden;
+    width: 25%;
+    left: 50%;
+    top: 5%;
+}
+
+#description {
+    position: absolute;
+    width: 20%;
+    top: 5%;
+    right: 2%;
+}
+
+#description a {
+    color: #3C232A;
+    cursor: pointer;
+    font-size: calc(.4vw + .4vh + 1vmin);
 }
 
 .parent p {
     color: #3C232A;
-    font-size: calc(.6vw + .6vh + 1vmin);
+    font-size: calc(.5vw + .5vh + 1vmin);
     font-family: 華康正顏楷體W5, 標楷體;
 }
 

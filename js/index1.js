@@ -1,40 +1,14 @@
-var video1;
-var video2;
-var video3;
-var video4;
-var playPoem = document.getElementById('playPoem'); /** 跑馬燈文字區 */
-var youtubeSRC; /** 紀錄當前影片網址，前往YouTube觀看用 */
-var marquee; /** 跑馬燈，播放/暫停用 */
 var player; /** 現正播放video */
-var nowStatus; /** 播放模式，1播放、0暫停 */
-var poemIMG = document.getElementById('poemIMG'); /** 播放圖案 */
-
-var poem1 = "春望  杜甫<br><br>國破山河在，城春草木深。<br><br>感時花濺淚，恨別鳥驚心。<br><br>峰火連三月，家書抵萬金。<br><br>白頭搔更短，渾欲不勝簪。</marquee>";
-var poem2 = "後赤壁賦　　蘇軾<br><br>是歲十月之望，步自雪堂，將歸于臨皋。<br><br>二客從予過黃泥之坂。<br><br>霜露既降，木葉盡脫；人影在地，仰見明月。<br><br>顧而樂之，行歌相答。已而嘆曰︰<br><br>「有客無酒，有酒無肴，月白風清，如此良夜何？」<br><br>客曰︰「今者薄暮，舉網得魚，<br><br>巨口細鱗，狀如松江之鱸。顧安所得酒乎？」<br><br>歸而謀諸婦。<br><br>婦曰︰「我有斗酒，藏之久矣，以待子不時之需 。」<br><br><br>於是攜酒與魚，復遊於赤壁之下。<br><br> 江流有聲，斷岸千尺，山高月小，水落石出。<br><br>曾日月之幾何，而江山不可復識矣。<br><br>予乃攝衣而上，履巉岩，披蒙茸，踞虎豹，登虬龍，<br><br>攀栖鶻之危巢，俯馮夷之幽宮。<br><br>蓋二客不能從焉。<br><br>劃然長嘯，草木震動，山鳴谷應，風起水湧。<br><br>予亦悄然而悲，肅然而恐，凜乎其不可留也。<br><br>反而登舟，放乎中流，聽其所止而休焉。<br><br><br>時夜將半，四顧寂寥。<br><br>適有孤鶴，橫江東來，<br><br>翅如車輪，玄裳縞衣，戛然長鳴，掠予舟而西也。<br><br>須臾客去，予亦就睡。<br><br>夢一道士，羽衣蹁躚，<br><br>過臨皋之下，揖予而言曰︰「赤壁之遊樂乎？」<br><br>問其姓名，俛而不答。<br><br>「嗚呼！噫嘻！我知之矣。<br><br>疇昔之夜，飛鳴而過我者 ，非子也耶？」<br><br>道士顧笑，予亦驚悟。開戶視之，不見其處。</marquee>";
-var poem3 = "<br>念奴嬌 赤壁懷古　　蘇軾<br><br><br><br><br>大江東去，浪淘盡、千古風流人物。<br><br>故壘西邊，人道是：三國周郎赤壁。<br><br>亂石穿空，驚濤拍岸，捲起千堆雪。<br><br>江山如畫，一時多少豪傑。<br><br><br>遙想公瑾當年，小喬初嫁了，雄姿英發。<br><br>羽扇綸巾，談笑間、強虜灰飛煙滅。<br><br>故國神遊，多情應笑我，早生華髮。<br><br>人生如夢，一尊還酹江月。<br><br><br><br><br><br><br><br><br>大江東去，浪淘盡、千古風流人物。<br><br>故壘西邊，人道是：三國周郎赤壁。<br><br>亂石穿空，驚濤拍岸，捲起千堆雪。<br><br>江山如畫，一時多少豪傑。<br><br><br>遙想公瑾當年，小喬初嫁了，雄姿英發。<br><br>羽扇綸巾，談笑間、強虜灰飛煙滅。<br><br>故國神遊，多情應笑我，早生華髮。<br><br>人生如夢，一尊還酹江月。<br><br><br><br><br><br><br><br><br><br><br><br><br><br>遙想公瑾當年，小喬初嫁了，雄姿英發。<br><br>羽扇綸巾，談笑間、強虜灰飛煙滅。<br><br>故國神遊，多情應笑我，早生華髮。<br><br>人生如夢，一尊還酹江月。<br><br><br><br>人生如夢，一尊還酹江月。";
-var poem4 = "<br>水調歌頭　　蘇軾<br><br><br><br><br><br>明月幾時有？<br><br>把酒問青天。<br><br>不知天上宮闕，<br><br>今夕是何年？<br><br><br>我欲乘風歸去，<br><br>唯恐瓊樓玉宇，<br><br>高處不勝寒。<br><br>起舞弄清影，<br><br>何似在人間？<br><br><br>轉朱閣，低綺戶，照無眠。<br><br>不應有恨，<br><br>何事長向別時圓？<br><br><br>人有悲歡離合，<br><br>月有陰晴圓缺，<br><br>此事古難全。<br><br>但願人長久，<br><br>千里共嬋娟。<br><br><br><br><br><br><br><br><br><br>轉朱閣，低綺戶，照無眠。<br><br>不應有恨，<br><br>何事長向別時圓？<br><br><br><br><br>人有悲歡離合，<br><br>月有陰晴圓缺，<br><br>此事古難全。<br><br>但願人長久，<br><br>千里共嬋娟。";
+var videoFrame = document.getElementById('youtube'); /** 影片 */
+var baseIMG = document.getElementById('baseIMG'); /** 底圖 */
+var description = document.getElementById('description') /** 說明文字 */
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
     // create the global player from the specific iframe (#video)
-    video1 = new YT.Player('video1', {
+    player = new YT.Player('youtube', {
         events: {
             // call this function when player is ready to use
-            'onReady': play
-        }
-    });
-    video2 = new YT.Player('video2', {
-        events: {
-            'onReady': play
-        }
-    });
-    video3 = new YT.Player('video3', {
-        events: {
-            'onReady': play
-        }
-    });
-    video4 = new YT.Player('video4', {
-        events: {
             'onReady': play
         }
     });
@@ -43,75 +17,73 @@ function onYouTubePlayerAPIReady() {
 /** 點擊圖案，啟動播放 */
 function play(playID) {
     stopAll();
-    var wishDelay = '85';
-    if (document.getElementById('baseIMG').offsetHeight < 485) {
-        wishDelay = '130';
-    }
-    var poemContent = "<marquee id='Marquee' direction='up' scrolldelay='" + wishDelay + "' scrollamount='1' behavior='scroll' loop=1 >";
-    if (playID == 'footprint') {
-        video1.playVideo();
-        playPoem.innerHTML = poemContent + poem1;
-        youtubeSRC = 'https://youtu.be/iCwKqC8vJNU';
-        player = video1;
-        poemIMG.src = 'img/chang an city.jpg';
-    } else if (playID == 'chibi2') {
-        video2.playVideo();
-        playPoem.innerHTML = poemContent + poem2;
-        youtubeSRC = 'https://youtu.be/bBMN_gOuPk8';
-        player = video2;
-    } else if (playID == 'chibi3') {
-        video3.playVideo();
-        poemContent = "<marquee id='Marquee' direction='up' scrolldelay='130' scrollamount='2' behavior='scroll' loop=1 >"
-        if (document.getElementById('baseIMG').offsetHeight < 485) {
-            poemContent = "<marquee id='Marquee' direction='up' scrolldelay='100' scrollamount='1' behavior='scroll' loop=1 >"
-        }
-        playPoem.innerHTML = poemContent + poem3;
-        youtubeSRC = 'https://youtu.be/ctMp0Wccc8s';
-        player = video3;
-    } else if (playID == 'sushi1') {
-        video4.playVideo();
-        playPoem.innerHTML = poemContent + poem4;
-        youtubeSRC = 'https://youtu.be/CQlt3-6N1P8';
-        player = video4;
+    if (playID == 'footprint1') {
+        youtubeSRC = 'https://youtu.be/pypnl8QA4BE';
+        player.loadVideoById('pypnl8QA4BE');
+        description.innerHTML = "天寶十四年（755）十一月，安祿山起兵叛唐。次年六月，叛軍攻陷潼關，唐玄宗匆忙逃往四川。七月，太子李亨即位於靈武（今寧夏）。杜甫聞訊，即將家屬安頓在都州，隻身一人投奔肅宗朝廷，結果不幸在途中被叛軍俘獲，解送至長安，後因官職卑微才未被囚禁。至德二年春，身處淪陷區的杜甫目睹了長安城一片蕭條零落的景象，百感交集，便寫下了這首傳誦千古的名作。<a onclick='goto(1)' >原文網址</a>";
+    } else if (playID == 'footprint2') {
+        youtubeSRC = 'https://youtu.be/-QS7ffWxKWg?t=10';
+        player.loadVideoById({
+            'videoId': '-QS7ffWxKWg',
+            'startSeconds': 10
+        });
+        description.innerHTML = "這首詩寫於761年（上元二年）春。杜甫在經過一段時間的流離轉徙的生活後，終因陝西旱災而來到四川成都定居，開始了在蜀中的一段較為安定的生活。作此詩時，他已在成都草堂定居兩年。他親自耕作，種菜養花，與農民交往，對春雨之情很深，因而寫下了這首描寫春夜降雨、潤澤萬物的美景詩作。<a onclick='goto(1)' >原文網址</a>";
+    } else if (playID == 'footprint3') {
+        youtubeSRC = 'https://youtu.be/95GcANELXik';
+        player.loadVideoById('95GcANELXik');
+        description.innerHTML = "《聞官軍收河南河北》作於廣德元年（公元763年）春天，那時杜甫52歲。寶應元年（公元762年）冬季，唐軍在洛陽附近的衡水打了一個大勝仗，收復了洛陽和鄭（今河南鄭州）、汴（今河南開封）等州，叛軍頭領薛嵩、張忠志等紛紛投降。第二年，史思明的兒子史朝義兵敗自縊，其部將田承嗣、李懷仙等相繼投降，至此，持續七年多的「安史之亂」宣告結束。杜甫是一個熱愛祖國而又飽經喪亂的詩人，當時正流落在四川。他聽聞消息後，欣喜若狂，恨不得馬上回到和平、安定的家鄉。<a onclick='goto(1)' >原文網址</a>";
+    } else if (playID == 'footprint4') {
+        youtubeSRC = 'https://youtu.be/K7Jv4CMmjs0';
+        player.loadVideoById('K7Jv4CMmjs0');
+        description.innerHTML = "此詩作於唐代宗大曆二年（767年）秋天，杜甫時在夔州。這是五十六歲的老詩人在極端困窘的情況下寫成的。當時安史之亂已經結束四年了，但地方軍閥又乘時而起，相互爭奪地盤。杜甫本入嚴武幕府，依託嚴武。不久嚴武病逝，杜甫失去依靠，只好離開經營了五六年的成都草堂，買舟南下。本想直達夔門，卻因病魔纏身，在雲安待了幾個月後才到夔州。如不是當地都督的照顧，他也不可能在此一住就是三個年頭。而就在這三年里，他的生活依然很困苦，身體也非常不好。一天他獨自登上夔州白帝城外的高台，登高臨眺，百感交集。望中所見，激起意中所觸；蕭瑟的秋江景色，引發了他身世飄零的感慨，滲入了他老病孤愁的悲哀。於是，就有了這首被譽為「七律之冠」的《登高》。<a onclick='goto(1)' >原文網址</a>";
+    } else if (playID == 'footprint5') {
+        youtubeSRC = 'https://youtu.be/Q-EaCHKwXwE';
+        player.loadVideoById('Q-EaCHKwXwE');
+        description.innerHTML = "這首詩是759年（乾元二年）秋杜甫在秦州所作。這年九月，安史之亂，安祿山、史思明從范陽引兵南下，攻陷汴州，西進洛陽，山東、河南都處於戰亂之中。當時，杜甫的幾個弟弟正分散在這一帶，由於戰事阻隔，音信不通，引起他強烈的憂慮和思念。詩中寫兄弟因戰亂而離散，杳無音信。在異鄉的戍鼓和孤雁聲中觀賞秋夜月露，只能倍增思鄉憶弟之情。顛沛流離中的詩人杜甫，看到山河破碎，思念不知生死的兄弟，更為國家而悲痛。<a onclick='goto(1)' >原文網址</a>";
+    } else if (playID == 'footprint6') {
+        youtubeSRC = 'https://youtu.be/eKxza5mdmDU?t=19';
+        player.loadVideoById({
+            'videoId': 'eKxza5mdmDU',
+            'startSeconds': 19
+        });
+        description.innerHTML = "此詩大概作於公元770年（大曆五年）杜甫在長沙的時候。安史之亂後，杜甫漂泊到江南一帶，和流落的宮廷歌唱家李龜年重逢，回憶起在岐王和崔九的府第頻繁相見和聽歌的情景而感慨萬千寫下這首詩。<a onclick='goto(1)' >原文網址</a>";
+    } else if (playID == 'footprint7') {
+        youtubeSRC = 'https://youtu.be/3w3auuxnpLo';
+        player.loadVideoById('3w3auuxnpLo');
+        description.innerHTML = "歷下亭歷史悠久，久經滄桑，位置多有變遷。北魏時在五龍潭處，酈道元《水經注》稱「客亭」，是官家為迎賓接使所建。唐初始稱「歷下亭」。天寶四年杜甫到臨邑看望其弟杜穎，路經濟南，適逢北海太守李邕至濟南，在此亭宴請杜甫及濟南名士，杜甫當即賦《陪李北海宴歷下亭》詩一首：「 東藩駐皂蓋，北渚凌清河。海右此亭古，濟南名士多。 雲山已發興，玉佩仍當歌，修竹不受暑，交流空湧波。 蘊真愜所遇，落日將如何。貴賤俱物役，從公難重過。」 <a onclick='goto(2)' >原文網址</a>";
+    } else if (playID == 'footprint8') {
+        youtubeSRC = 'https://youtu.be/BlK8UtYZ8p0';
+        player.loadVideoById('BlK8UtYZ8p0');
+        description.innerHTML = "這首詩是杜甫乘舟行經渝州（今重慶）、忠軸(今重慶市忠州)時寫下的。當時的杜甫已53歲，且常年有病，國家時局不穩，自己生活沒有着落，又無定蹤，因此一路上他心情十分沉重，這首詩集中表現了他的這種心情。 <a onclick='goto(3)' >原文網址</a>";
+    } else if (playID == 'footprint9') {
+        youtubeSRC = 'https://youtu.be/nKU3AulK-Bo';
+        player.loadVideoById('nKU3AulK-Bo');
+        description.innerHTML = "唐玄宗天寶年間，朝廷對邊疆少數民族頻繁發動進攻。八載（749），哥舒翰奉命進攻吐蕃石堡城（在今青海省境內），久攻不下，後雖僥倖取勝，但所部六萬三千人損失大半；到這年冬天，所派駐龍駒島（在青海湖中）的二千戍卒也全軍覆沒。十載（751）四月，劍南節度使鮮于仲通又奉命進攻南詔（主要轄境在今雲南省），結果大敗，士卒死者六萬人，仲通僅以身免。 <a onclick='goto(3)' >原文網址</a>";
     }
     if (playID != undefined && playID.length > 0) {
-        document.getElementById('playBar').style.visibility = 'visible';
-        document.getElementById('Marquee').style.height = (document.getElementById('baseIMG').offsetHeight * 0.55).toString() + 'px';
-    }
-    marquee = document.getElementById('Marquee');
-    nowStatus = 1;
-}
-
-/** 暫停/播放 → 按鍵轉換、跑馬燈文字、影片(聲音) */
-function playPause() {
-    if (nowStatus == 1) {
-        document.getElementById('playPause').style.cssText = 'height: 2vw;border-style: solid;border-width: 1vw 0 1vw 1.6vw;border-color: transparent transparent transparent #3C232A;cursor: pointer;margin-right: .5vw;';
-        nowStatus = 0;
-        player.pauseVideo();
-        marquee.stop();
-    } else if (nowStatus == 0) {
-        document.getElementById('playPause').style.cssText = 'width: 2vw;height: 2vw;border-style: double;border-width: 0 0 0 1vw;border-color: #3C232A;cursor: pointer;margin-right: .5vw;';
-        nowStatus = 1;
         player.playVideo();
-        marquee.start();
+        videoFrame.height = baseIMG.offsetHeight / 2;
+        videoFrame.style.visibility = 'visible';
     }
 }
 
-/** 停止影片播放、隱藏播放控制區、清空相關欄位 */
+/** 停止影片播放 */
 function stopAll() {
-    document.getElementById('playBar').style.visibility = 'hidden';
-    playPoem.innerHTML = '';
-    video1.stopVideo();
-    video2.stopVideo();
-    video3.stopVideo();
-    video4.stopVideo();
-    youtubeSRC = '';
-    poemIMG.src = '';
+    description.innerHTML = "";
+    player.stopVideo();
 }
 
-/** 前往YouTube觀看 */
-function gotoYouTube() {
-    window.open(youtubeSRC);
+/** 文字參考網址 */
+function goto(thisPage) {
+    var thisSRC;
+    if (thisPage == 1) {
+        thisSRC = 'https://kknews.cc/zh-tw/history/jrybqol.html?fbclid=IwAR3sHm43IOakUgD8B-_JWcYAWWMcylLI3JDfH3Bl1fGm42uhj3BnuebPEBo';
+    } else if (thisPage == 2) {
+        thisSRC = 'http://rthk9.rthk.hk/elearning/travel/articles/12/f12_01_02_02_01.htm';
+    } else if (thisPage == 3) {
+        thisSRC = 'https://fanti.dugushici.com/ancient_proses/10967';
+    }
+    window.open(thisSRC);
 }
 
 // Inject YouTube API script
