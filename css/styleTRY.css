@@ -155,6 +155,7 @@ body button:focus {
     background: #3C232A;
     color: #E8DCC4;
     font-size: calc(.5vw + .5vh + 1vmin);
+    font-family: 華康正顏楷體W5, 標楷體;
     padding: .5vh .5vw;
     border-radius: .5vw;
 }

@@ -118,9 +118,9 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 /** 預覽/編輯 切換 */
 function modeChange() {
-    if (modeStatus.innerText == 'Edit') {
+    if (modeStatus.innerText == '編輯') {
         stopAll();
-        modeStatus.innerText = 'View';
+        modeStatus.innerText = '預覽';
         modeStatus.style.backgroundColor = '#3C232A';
         modeStatus.title = '退出編輯';
         updateBlock.style.visibility = 'visible';
@@ -129,8 +129,8 @@ function modeChange() {
         videoShow.style.visibility = 'hidden';
         prePosition.style.display = 'initial';
         youtube.style.display = 'none';
-    } else if (modeStatus.innerText == 'View') {
-        modeStatus.innerText = 'Edit';
+    } else if (modeStatus.innerText == '預覽') {
+        modeStatus.innerText = '編輯';
         modeStatus.style.backgroundColor = 'rgba(60, 35, 42, .6)';
         modeStatus.title = '進行編輯';
         updateBlock.style.visibility = 'hidden';
