@@ -1,39 +1,41 @@
 var playPoem = document.getElementById('playPoem'); /** 跑馬燈文字區 */
 var youtubeSRC; /** 紀錄當前影片網址，前往YouTube觀看用 */
 var marquee; /** 跑馬燈，播放/暫停用 */
-var player; /** 現正播放video */
+var player1; /** 現正播放voice */
 var nowStatus; /** 播放模式，1播放、0暫停 */
 var modeStatus = document.getElementById('modeStatus'); /** 預覽/編輯 切換 */
 var baseIMG = document.getElementById('baseIMG'); /** 底圖 */
 var updateBlock = document.getElementById('updateBlock'); /** 編輯區，visibility：visible/hidden */
 var updateIMG; /** 當前編輯圖片，放大縮小用 */
-var videoArray = JSON.parse('[]'); /** 放影片網址{image:圖片名稱,video:網址} */
-var nowVideo = document.getElementById('youtubeURL'); /** 現正編輯圖案的影片網址 */
+var editArray = JSON.parse('[]'); /** 放音源網址{image:圖片名稱,voive:音源網址,video:網址} */
+var nowVoice = document.getElementById('voiceURL'); /** 現正編輯圖案的音源網址 */
 var nowIndex; /** 現正編輯圖案的影片index */
 var videoFrame = document.getElementById('videoFrame'); /** 影片區(隱藏) */
+var nowVideo = document.getElementById('videoURL'); /** 現正編輯圖案的影片網址 */
+var videoShow = document.getElementById('videoShow') /** 影片，編輯/預覽 切換 */
+var player2; /** 現正播放video */
+var prePosition = document.getElementById('prePosition');
+var youtube = document.getElementById('youtube');
+youtube.style.width = prePosition.offsetWidth + 'px';
+youtube.style.height = prePosition.offsetHeight + 'px';
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
     // create the global player from the specific iframe (#video)
-    player = new YT.Player('videoFrame', {
+    player1 = new YT.Player('videoFrame', {
+        events: {
+            'onReady': play
+        }
+    });
+    player2 = new YT.Player('youtube', {
         events: {
             'onReady': play
         }
     });
 }
 
-function getVideoID(thisElement) {
-    var imgName = thisElement.src.replace(window.location.origin + '/SUSHI/img/customer/', ''); /** 取得圖片名稱.格式 */
-    var position = imgName.indexOf('.');
-    var nowIMG = imgName.substring(0, position);
-    var indexHere;
-    for (var i = 0; i < videoArray.length; i++) {
-        if (videoArray[i].image == nowIMG) {
-            indexHere = i;
-            break;
-        }
-    }
-    var videoHere = videoArray[indexHere].video;
+/** 取得影片ID */
+function getVideoID(videoHere) {
     var videoID;
     if (videoHere.startsWith("https://www.youtube.com/watch?")) {
         videoID = videoHere.substr(videoHere.indexOf("v=") + 2, 11);
@@ -43,19 +45,40 @@ function getVideoID(thisElement) {
     } else if (videoHere.startsWith("https://youtu.be/")) {
         videoID = videoHere.replace("https://youtu.be/", "");
         videoID = videoID.substring(0, 11);
+    } else {
+        videoID = '';
     }
     return videoID;
 }
 
+/** 點擊圖案，即播放 */
 function play(e) {
     stopAll();
-    var thisVideoID = getVideoID(e);
-    player.loadVideoById(thisVideoID);
-    youtubeSRC = "https://youtu.be/" + thisVideoID;
-    document.getElementById('playBar').style.visibility = 'visible';
-    nowStatus = 1;
-    document.getElementById('playPause').style.cssText = 'width: 2vw;height: 2vw;border-style: double;border-width: 0 0 0 1vw;border-color: #3C232A;cursor: pointer;margin-right: .5vw;';
-    player.playVideo();
+    var imgName = e.src.replace(window.location.origin + '/SUSHI/img/customer/', ''); /** 取得圖片名稱.格式 */
+    var position = imgName.indexOf('.');
+    var nowIMG = imgName.substring(0, position);
+    var indexHere;
+    for (var i = 0; i < editArray.length; i++) {
+        if (editArray[i].image == nowIMG) {
+            indexHere = i;
+            break;
+        }
+    }
+    var thisVoiceID = getVideoID(editArray[indexHere].voice);
+    var thisVideoID = getVideoID(editArray[indexHere].video);
+    if (thisVoiceID != '') {
+        player1.loadVideoById(thisVoiceID);
+        youtubeSRC = "https://youtu.be/" + thisVoiceID;
+        document.getElementById('playBar').style.visibility = 'visible';
+        nowStatus = 1;
+        document.getElementById('playPause').style.cssText = 'width: 2vw;height: 2vw;border-style: double;border-width: 0 0 0 1vw;border-color: #3C232A;cursor: pointer;margin-right: .5vw;';
+        player1.playVideo();
+    }
+    if (thisVideoID != '') {
+        player2.loadVideoById(thisVideoID);
+        videoShow.style.visibility = 'visible';
+        player2.playVideo();
+    }
 }
 
 /** 0-暫停/1-播放 → 按鍵轉換、跑馬燈文字、影片(聲音) */
@@ -63,23 +86,26 @@ function playPause() {
     if (nowStatus == 1) {
         document.getElementById('playPause').style.cssText = 'height: 2vw;border-style: solid;border-width: 1vw 0 1vw 1.6vw;border-color: transparent transparent transparent #3C232A;cursor: pointer;margin-right: .5vw;';
         nowStatus = 0;
-        player.pauseVideo();
+        player1.pauseVideo();
         marquee.stop();
     } else if (nowStatus == 0) {
         document.getElementById('playPause').style.cssText = 'width: 2vw;height: 2vw;border-style: double;border-width: 0 0 0 1vw;border-color: #3C232A;cursor: pointer;margin-right: .5vw;';
         nowStatus = 1;
-        player.playVideo();
+        player1.playVideo();
         marquee.start();
     }
 }
 
+/** 停止播放，清空相關變數 */
 function stopAll() {
     document.getElementById('playBar').style.visibility = 'hidden';
     playPoem.innerHTML = '';
-    player.stopVideo();
+    player1.stopVideo();
+    player2.stopVideo();
     youtubeSRC = '';
 }
 
+/** 前往網址觀賞 */
 function gotoYouTube() {
     window.open(youtubeSRC);
 }
@@ -100,6 +126,9 @@ function modeChange() {
         updateBlock.style.visibility = 'visible';
         document.getElementById('playBar').style.visibility = 'hidden';
         editView(1);
+        videoShow.style.visibility = 'hidden';
+        prePosition.style.display = 'initial';
+        youtube.style.display = 'none';
     } else if (modeStatus.innerText == 'View') {
         modeStatus.innerText = 'Edit';
         modeStatus.style.backgroundColor = 'rgba(60, 35, 42, .6)';
@@ -108,6 +137,9 @@ function modeChange() {
         checkAllIMGs();
         document.getElementById('updateIMG').style.visibility = 'hidden';
         editView(0);
+        videoShow.style.visibility = 'hidden';
+        prePosition.style.display = 'none';
+        youtube.style.display = 'initial';
     }
 }
 
@@ -179,27 +211,24 @@ function editIMG(e) {
     var imgName = updateIMG.src.replace(window.location.origin + '/SUSHI/img/customer/', ''); /** 取得圖片名稱 */
     var position = imgName.indexOf('.');
     var nowIMG = imgName.substring(0, position);
-    if (videoArray.length == 0) {
-        videoArray.push({ image: nowIMG, video: '', player: undefined });
-        nowVideo.value = '';
-        nowIndex = 0;
-        $("#youtubeVideoes").append('<iframe id="' + nowIMG + '" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"        allowfullscreen></iframe>');
-    } else {
-        var hasValue = 0;
-        for (var i = 0; i < videoArray.length; i++) {
-            if (videoArray[i].image == nowIMG) {
-                nowVideo.value = videoArray[i].video;
-                hasValue++;
-                nowIndex = i;
-                break;
+    var hasValue = 0;
+    for (var i = 0; i < editArray.length; i++) {
+        if (editArray[i].image == nowIMG) {
+            nowVoice.value = editArray[i].voice;
+            nowVideo.value = editArray[i].video;
+            if (nowVideo.value != '') {
+                videoShow.style.visibility = 'visible';
             }
+            hasValue++;
+            nowIndex = i;
+            break;
         }
-        if (hasValue == 0) {
-            videoArray.push({ image: nowIMG, video: '', player: undefined });
-            nowIndex = videoArray.length - 1;
-            nowVideo.value = '';
-            $("#youtubeVideoes").append('<iframe id="' + nowIMG + '" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"        allowfullscreen></iframe>');
-        }
+    }
+    if (hasValue == 0) {
+        editArray.push({ image: nowIMG, voice: '', video: '' });
+        nowIndex = editArray.length - 1;
+        nowVoice.value = '';
+        nowVideo.value = '';
     }
 }
 
@@ -263,10 +292,24 @@ function draDIV(elmnt) {
     }
 }
 
-/** 儲存網址至videoArray */
+/** 儲存音源網址至Array */
 function saveURL() {
-    if (nowVideo.value.startsWith("https://www.youtube.com/watch?") || nowVideo.value.startsWith("https://www.youtube.com/embed/") || nowVideo.value.startsWith("https://youtu.be/")) {
-        videoArray[nowIndex].video = nowVideo.value;
+    if (nowVoice.value == '') {
+        editArray[nowIndex].voice = '';
+    } else if (nowVoice.value.startsWith("https://www.youtube.com/watch?") || nowVoice.value.startsWith("https://www.youtube.com/embed/") || nowVoice.value.startsWith("https://youtu.be/")) {
+        editArray[nowIndex].voice = nowVoice.value;
+    } else {
+        alert('請確認Youtube網址是否正確');
+    }
+}
+
+/** 儲存影片網址至Array */
+function uploadURL() {
+    if (nowVideo.value == '') {
+        editArray[nowIndex].video = '';
+    } else if (nowVideo.value.startsWith("https://www.youtube.com/watch?") || nowVideo.value.startsWith("https://www.youtube.com/embed/") || nowVideo.value.startsWith("https://youtu.be/")) {
+        editArray[nowIndex].video = nowVideo.value;
+        videoShow.style.visibility = 'visible';
     } else {
         alert('請確認Youtube網址是否正確');
     }

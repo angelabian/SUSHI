@@ -23,6 +23,13 @@
 			<div id='initialBaseIMG'>請上傳底圖</div>
 		</div>
 		<div id='images'></div>
+		<div id="videoShow">
+			<div class='imagesHeader' onclick='draDIV(this)'>
+				<iframe class='image' id="youtube" src="https://www.youtube.com/embed/PBH7JY3Ldgk?enablejsapi=1&html5=1"
+				 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<div class='image' id='prePosition'>影片位置</div>
+			</div>
+		</div>
 		<div class='playPoem'>
 			<p id='playPoem'></p>
 		</div>
@@ -54,10 +61,17 @@
 				<div onclick="magnify()">+</div>
 				<div onclick="minify()">-</div>
 			</div>
-			<div id='videoURL'>
-				YouTube網址：
-				<input id='youtubeURL' value="" />
-				<button class='save' onclick='saveURL()'>儲存</button>
+			<div>
+				<div class='editContent'>
+					音源-YouTube網址：
+					<input id='voiceURL' value="" />
+					<button class='save' onclick='saveURL()'>儲存</button>
+				</div>
+				<div class='editContent'>
+					影片-YouTube網址：
+					<input id='videoURL' value="" />
+					<button class='save' onclick='uploadURL()'>上傳</button>
+				</div>
 			</div>
 		</div>
 	</div>
