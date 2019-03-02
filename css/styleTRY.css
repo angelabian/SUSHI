@@ -18,12 +18,9 @@ body button:focus {
 #initialBaseIMG {
     width: 100%;
     padding: 10vh 0;
-    font-size: calc(.6vw + .6vh + 1vmin);
     text-align: center;
     font-weight: bold;
-    color: #3C232A;
     background-color: transparent;
-    font-family: 華康正顏楷體W5, 標楷體;
     border-style: dashed;
     border-width: .5vw;
 }
@@ -74,10 +71,7 @@ body button:focus {
 
 #prePosition {
     position: absolute;
-    font-size: calc(.6vw + .6vh + 1vmin);
-    color: #3C232A;
     background-color: transparent;
-    font-family: 華康正顏楷體W5, 標楷體;
     border-style: solid;
     border-width: .2vw;
     width: 24vw;
@@ -93,6 +87,18 @@ body button:focus {
     display: none;
 }
 
+#desShow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+
+#desPosition {
+    position: absolute;
+    width: 30vw;
+}
+
 .playPoem {
     position: absolute;
     width: 35vw;
@@ -100,7 +106,7 @@ body button:focus {
     right: 0;
 }
 
-.parent p {
+.parent {
     color: #3C232A;
     font-size: calc(.6vw + .6vh + 1vmin);
     font-family: 華康正顏楷體W5, 標楷體;
@@ -226,6 +232,12 @@ form {
 }
 
 .editContent input {
+    color: #3C232A;
+    background: transparent;
+    outline: 0;
+}
+
+.editContent textarea {
     color: #3C232A;
     background: transparent;
     outline: 0;

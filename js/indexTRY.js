@@ -7,17 +7,20 @@ var modeStatus = document.getElementById('modeStatus'); /** 預覽/編輯 切換
 var baseIMG = document.getElementById('baseIMG'); /** 底圖 */
 var updateBlock = document.getElementById('updateBlock'); /** 編輯區，visibility：visible/hidden */
 var updateIMG; /** 當前編輯圖片，放大縮小用 */
-var editArray = JSON.parse('[]'); /** 放音源網址{image:圖片名稱,voive:音源網址,video:網址} */
+var editArray = JSON.parse('[]'); /** {image:圖片名稱,voive:音源網址,video:網址,words:說明文字,marquee:跑馬燈文字} */
 var nowVoice = document.getElementById('voiceURL'); /** 現正編輯圖案的音源網址 */
 var nowIndex; /** 現正編輯圖案的影片index */
 var videoFrame = document.getElementById('videoFrame'); /** 影片區(隱藏) */
 var nowVideo = document.getElementById('videoURL'); /** 現正編輯圖案的影片網址 */
 var videoShow = document.getElementById('videoShow') /** 影片，編輯/預覽 切換 */
 var player2; /** 現正播放video */
-var prePosition = document.getElementById('prePosition');
-var youtube = document.getElementById('youtube');
+var prePosition = document.getElementById('prePosition'); /** 編輯影片 */
+var youtube = document.getElementById('youtube'); /** 預覽影片 */
 youtube.style.width = prePosition.offsetWidth + 'px';
 youtube.style.height = prePosition.offsetHeight + 'px';
+var nowDescription = document.getElementById('description'); /** 說明文字 */
+var desShow = document.getElementById('desShow'); /** 說明文字，編輯/預覽 切換 */
+var desPosition = document.getElementById('desPosition'); /** 說明文字DIV */
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
@@ -79,6 +82,9 @@ function play(e) {
         videoShow.style.visibility = 'visible';
         player2.playVideo();
     }
+    if (editArray[indexHere].words != ''){
+        desShow.style.visibility = 'visible';
+    }
 }
 
 /** 0-暫停/1-播放 → 按鍵轉換、跑馬燈文字、影片(聲音) */
@@ -129,6 +135,7 @@ function modeChange() {
         videoShow.style.visibility = 'hidden';
         prePosition.style.display = 'initial';
         youtube.style.display = 'none';
+        desShow.style.visibility = 'hidden';
     } else if (modeStatus.innerText == '預覽') {
         modeStatus.innerText = '編輯';
         modeStatus.style.backgroundColor = 'rgba(60, 35, 42, .6)';
@@ -140,20 +147,27 @@ function modeChange() {
         videoShow.style.visibility = 'hidden';
         prePosition.style.display = 'none';
         youtube.style.display = 'initial';
+        desShow.style.visibility = 'hidden';
     }
 }
 
 /** 圖案觸發程式切換 */
 function editView(status) {
     var originEles = document.getElementById("images").innerHTML;
+    var originEles1 = document.getElementById('desShow').innerHTML;
     if (status == 0) {
         var newEles = originEles.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
         newEles = newEles.replace(/onclick="editIMG\(this\)"/g, 'onclick="play(this)"');
+        var newEles1 = originEles1.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
+        newEles1 = newEles1.replace(/class="image" id="desPosition"/g, 'class="" id="desPosition"')
     } else if (status == 1) {
         var newEles = originEles.replace(/onclick=""/g, 'onclick="draDIV(this)"');
         newEles = newEles.replace(/onclick="play\(this\)"/g, 'onclick="editIMG(this)"');
+        var newEles1 = originEles1.replace(/onclick=""/g, 'onclick="draDIV(this)"');
+        newEles1 = newEles1.replace(/class="" id="desPosition"/g, 'class="image" id="desPosition"')
     }
     document.getElementById("images").innerHTML = newEles;
+    document.getElementById('desShow').innerHTML = newEles1;
 }
 
 /** 上傳圖片 PHP處理 */
@@ -216,8 +230,12 @@ function editIMG(e) {
         if (editArray[i].image == nowIMG) {
             nowVoice.value = editArray[i].voice;
             nowVideo.value = editArray[i].video;
+            nowDescription.value = editArray[i].words;
             if (nowVideo.value != '') {
                 videoShow.style.visibility = 'visible';
+            }
+            if (nowDescription.value != '') {
+                desShow.style.visibility = 'visible';
             }
             hasValue++;
             nowIndex = i;
@@ -225,10 +243,11 @@ function editIMG(e) {
         }
     }
     if (hasValue == 0) {
-        editArray.push({ image: nowIMG, voice: '', video: '' });
+        editArray.push({ image: nowIMG, voice: '', video: '', words: '', marquee: '' });
         nowIndex = editArray.length - 1;
         nowVoice.value = '';
         nowVideo.value = '';
+        nowDescription.value = '';
     }
 }
 
@@ -313,4 +332,11 @@ function uploadURL() {
     } else {
         alert('請確認Youtube網址是否正確');
     }
+}
+
+/** 儲存說明文字至Array */
+function uploadDes() {
+    editArray[nowIndex].words = nowDescription.value;
+    desPosition.innerText = nowDescription.value;
+    desShow.style.visibility = 'visible';
 }

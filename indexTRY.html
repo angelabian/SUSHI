@@ -30,6 +30,11 @@
 				<div class='image' id='prePosition'>影片位置</div>
 			</div>
 		</div>
+		<div id="desShow">
+			<div class='imagesHeader' onclick='draDIV(this)'>
+				<div class='image' id='desPosition'></div>
+			</div>
+		</div>
 		<div class='playPoem'>
 			<p id='playPoem'></p>
 		</div>
@@ -71,6 +76,11 @@
 					影片-YouTube網址：
 					<input id='videoURL' value="" />
 					<button class='save' onclick='uploadURL()'>上傳</button>
+				</div>
+				<div class='editContent'>
+					說明文字：
+					<textarea id='description' cols = "50" value="" ></textarea>
+					<button class='save' onclick='uploadDes()'>上傳</button>
 				</div>
 			</div>
 		</div>
