@@ -99,11 +99,21 @@ body button:focus {
     width: 30vw;
 }
 
-.playPoem {
+#marqueeShow {
     position: absolute;
-    width: 35vw;
-    top: 3.9%;
-    right: 0;
+    top: 0;
+    left: 0;
+    visibility: visible;
+}
+
+#marqPosition {
+    position: absolute;
+    width: 30vw;
+}
+
+#marquee {
+    position: absolute;
+    width: 30vw;
 }
 
 .parent {

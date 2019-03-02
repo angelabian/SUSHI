@@ -1,6 +1,5 @@
 var playPoem = document.getElementById('playPoem'); /** 跑馬燈文字區 */
 var youtubeSRC; /** 紀錄當前影片網址，前往YouTube觀看用 */
-var marquee; /** 跑馬燈，播放/暫停用 */
 var player1; /** 現正播放voice */
 var nowStatus; /** 播放模式，1播放、0暫停 */
 var modeStatus = document.getElementById('modeStatus'); /** 預覽/編輯 切換 */
@@ -18,9 +17,14 @@ var prePosition = document.getElementById('prePosition'); /** 編輯影片 */
 var youtube = document.getElementById('youtube'); /** 預覽影片 */
 youtube.style.width = prePosition.offsetWidth + 'px';
 youtube.style.height = prePosition.offsetHeight + 'px';
-var nowDescription = document.getElementById('description'); /** 說明文字 */
+var nowDescription = document.getElementById('description'); /** 說明文字(輸入) */
 var desShow = document.getElementById('desShow'); /** 說明文字，編輯/預覽 切換 */
-var desPosition = document.getElementById('desPosition'); /** 說明文字DIV */
+var desPosition = document.getElementById('desPosition'); /** 編輯說明文字 */
+var nowMarquee = document.getElementById('marqueeDes'); /** 跑馬燈(輸入) */
+var marqueeShow = document.getElementById('marqueeShow'); /** 跑馬燈，編輯/預覽 切換 */
+var marqPosition = document.getElementById('marqPosition'); /** 編輯跑馬燈 */
+var marquee = document.getElementById('marquee'); /** 預覽跑馬燈 */
+
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
@@ -82,8 +86,13 @@ function play(e) {
         videoShow.style.visibility = 'visible';
         player2.playVideo();
     }
-    if (editArray[indexHere].words != ''){
+    if (editArray[indexHere].words != '') {
         desShow.style.visibility = 'visible';
+        desPosition.innerText = editArray[indexHere].words;
+    }
+    if (editArray[indexHere].marquee != '') {
+        marqPosition.innerHTML = "<marquee class='image' id='marquee' direction='up' scrolldelay='100' scrollamount='1' behavior='scroll' loop=1>跑馬燈測試<br>跑馬燈測試<br>" + editArray[indexHere].marquee + "</marquee>";
+        marqueeShow.style.visibility = 'visible';
     }
 }
 
@@ -105,10 +114,14 @@ function playPause() {
 /** 停止播放，清空相關變數 */
 function stopAll() {
     document.getElementById('playBar').style.visibility = 'hidden';
-    playPoem.innerHTML = '';
     player1.stopVideo();
-    player2.stopVideo();
     youtubeSRC = '';
+    videoShow.style.visibility = 'hidden';
+    player2.stopVideo();
+    desShow.style.visibility = 'hidden';
+    desPosition.innerText = '';
+    marqueeShow.style.visibility = 'hidden';
+    marqPosition.innerHTML = '';
 }
 
 /** 前往網址觀賞 */
@@ -136,6 +149,7 @@ function modeChange() {
         prePosition.style.display = 'initial';
         youtube.style.display = 'none';
         desShow.style.visibility = 'hidden';
+        marqueeShow.style.visibility = 'hidden';
     } else if (modeStatus.innerText == '預覽') {
         modeStatus.innerText = '編輯';
         modeStatus.style.backgroundColor = 'rgba(60, 35, 42, .6)';
@@ -148,6 +162,8 @@ function modeChange() {
         prePosition.style.display = 'none';
         youtube.style.display = 'initial';
         desShow.style.visibility = 'hidden';
+        marqPosition.innerHTML = "";
+        marqueeShow.style.visibility = 'hidden';
     }
 }
 
@@ -155,19 +171,25 @@ function modeChange() {
 function editView(status) {
     var originEles = document.getElementById("images").innerHTML;
     var originEles1 = document.getElementById('desShow').innerHTML;
+    var originEles2 = document.getElementById('marqueeShow').innerHTML;
     if (status == 0) {
         var newEles = originEles.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
         newEles = newEles.replace(/onclick="editIMG\(this\)"/g, 'onclick="play(this)"');
         var newEles1 = originEles1.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
         newEles1 = newEles1.replace(/class="image" id="desPosition"/g, 'class="" id="desPosition"')
+        var newEles2 = originEles2.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
+        newEles2 = newEles2.replace(/class="image" id="marqPosition"/g, 'class="" id="marqPosition"')
     } else if (status == 1) {
         var newEles = originEles.replace(/onclick=""/g, 'onclick="draDIV(this)"');
         newEles = newEles.replace(/onclick="play\(this\)"/g, 'onclick="editIMG(this)"');
         var newEles1 = originEles1.replace(/onclick=""/g, 'onclick="draDIV(this)"');
         newEles1 = newEles1.replace(/class="" id="desPosition"/g, 'class="image" id="desPosition"')
+        var newEles2 = originEles2.replace(/onclick=""/g, 'onclick="draDIV(this)"');
+        newEles2 = newEles2.replace(/class="" id="marqPosition"/g, 'class="image" id="marqPosition"')
     }
     document.getElementById("images").innerHTML = newEles;
     document.getElementById('desShow').innerHTML = newEles1;
+    document.getElementById('marqueeShow').innerHTML = newEles2;
 }
 
 /** 上傳圖片 PHP處理 */
@@ -218,10 +240,11 @@ $(document).ready(function (e) {
 
 /** 啟動該圖案編輯模式 */
 function editIMG(e) {
-    checkAllIMGs();
-    e.className += ' editIMG';
-    document.getElementById('updateIMG').style.visibility = 'visible';
     updateIMG = e;
+    checkAll();
+    checkAllIMGs();
+    updateIMG.className += ' editIMG';
+    document.getElementById('updateIMG').style.visibility = 'visible';
     var imgName = updateIMG.src.replace(window.location.origin + '/SUSHI/img/customer/', ''); /** 取得圖片名稱 */
     var position = imgName.indexOf('.');
     var nowIMG = imgName.substring(0, position);
@@ -231,11 +254,17 @@ function editIMG(e) {
             nowVoice.value = editArray[i].voice;
             nowVideo.value = editArray[i].video;
             nowDescription.value = editArray[i].words;
+            nowMarquee.value = editArray[i].marquee;
             if (nowVideo.value != '') {
                 videoShow.style.visibility = 'visible';
             }
             if (nowDescription.value != '') {
                 desShow.style.visibility = 'visible';
+                desPosition.innerText = editArray[i].words;
+            }
+            if (nowMarquee.value != '') {
+                marqPosition.innerHTML = nowMarquee.value;
+                marqueeShow.style.visibility = 'visible';
             }
             hasValue++;
             nowIndex = i;
@@ -248,6 +277,7 @@ function editIMG(e) {
         nowVoice.value = '';
         nowVideo.value = '';
         nowDescription.value = '';
+        nowMarquee.value = '';
     }
 }
 
@@ -259,6 +289,19 @@ function checkAllIMGs() {
             images[i].className = images[i].className.replace(" editIMG", "");
         }
     }
+}
+
+/** 清空編輯區 */
+function checkAll() {
+    nowVoice.value = '';
+    nowVideo.value = '';
+    nowDescription.value = '';
+    nowMarquee.value = '';
+    videoShow.style.visibility = 'hidden';
+    desPosition.innerText = '';
+    desShow.style.visibility = 'hidden';
+    marqPosition.innerHTML = '';
+    marqueeShow.style.visibility = 'hidden';
 }
 
 /** 圖案放大，不可大過底圖 */
@@ -326,6 +369,7 @@ function saveURL() {
 function uploadURL() {
     if (nowVideo.value == '') {
         editArray[nowIndex].video = '';
+        videoShow.style.visibility = 'hidden';
     } else if (nowVideo.value.startsWith("https://www.youtube.com/watch?") || nowVideo.value.startsWith("https://www.youtube.com/embed/") || nowVideo.value.startsWith("https://youtu.be/")) {
         editArray[nowIndex].video = nowVideo.value;
         videoShow.style.visibility = 'visible';
@@ -336,7 +380,26 @@ function uploadURL() {
 
 /** 儲存說明文字至Array */
 function uploadDes() {
-    editArray[nowIndex].words = nowDescription.value;
-    desPosition.innerText = nowDescription.value;
-    desShow.style.visibility = 'visible';
+    if (nowDescription.value == '') {
+        editArray[nowIndex].words = '';
+        desPosition.innerText = '';
+        desShow.style.visibility = 'hidden';
+    } else {
+        editArray[nowIndex].words = nowDescription.value;
+        desPosition.innerText = nowDescription.value;
+        desShow.style.visibility = 'visible';
+    }
+}
+
+/** 儲存跑馬燈文字至Array */
+function uploadMarq() {
+    if (nowMarquee.value == '') {
+        editArray[nowIndex].marquee = '';
+        marqPosition.innerHTML = '';
+        marqueeShow.style.visibility = 'hidden';
+    } else {
+        editArray[nowIndex].marquee = nowMarquee.value;
+        marqPosition.innerHTML = nowMarquee.value;
+        marqueeShow.style.visibility = 'visible';
+    }
 }

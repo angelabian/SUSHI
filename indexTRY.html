@@ -35,8 +35,10 @@
 				<div class='image' id='desPosition'></div>
 			</div>
 		</div>
-		<div class='playPoem'>
-			<p id='playPoem'></p>
+		<div id="marqueeShow">
+			<div class='imagesHeader' onclick='draDIV(this)'>
+				<div class='image' id='marqPosition'></div>
+			</div>
 		</div>
 	</div>
 	<div class='controllBar'>
@@ -75,12 +77,17 @@
 				<div class='editContent'>
 					影片-YouTube網址：
 					<input id='videoURL' value="" />
-					<button class='save' onclick='uploadURL()'>上傳</button>
+					<button class='save' onclick='uploadURL()'>儲存</button>
 				</div>
 				<div class='editContent'>
 					說明文字：
-					<textarea id='description' cols = "50" value="" ></textarea>
-					<button class='save' onclick='uploadDes()'>上傳</button>
+					<textarea id='description' cols="50" value=""></textarea>
+					<button class='save' onclick='uploadDes()'>儲存</button>
+				</div>
+				<div class='editContent' style="display: none;">
+					跑馬燈文字：
+					<textarea id='marqueeDes' cols="50" value=""></textarea>
+					<button class='save' onclick='uploadMarq()'>儲存</button>
 				</div>
 			</div>
 		</div>
