@@ -277,3 +277,8 @@ form {
 #youtubeVideoes {
     display: none;
 }
+
+/* 頁面尾巴 */
+.pageBottom {
+    height: 2vh;
+}
