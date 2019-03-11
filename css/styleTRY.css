@@ -99,7 +99,7 @@ body button:focus {
     width: 30vw;
 }
 
-#marqueeShow {
+#marqShow {
     position: absolute;
     top: 0;
     left: 0;

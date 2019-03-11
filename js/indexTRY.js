@@ -17,10 +17,14 @@ var prePosition = document.getElementById('prePosition'); /** 編輯影片 */
 var youtube = document.getElementById('youtube'); /** 預覽影片 */
 youtube.style.width = prePosition.offsetWidth + 'px';
 youtube.style.height = prePosition.offsetHeight + 'px';
-var nowDescription = document.getElementById('description'); /** 說明文字(輸入) */
+var nowDescription = document.getElementById('description'); /** 現正編輯說明文字 */
 var desShow = document.getElementById('desShow'); /** 說明文字，編輯/預覽 切換 */
 var desPosition = document.getElementById('desPosition'); /** 說明文字(顯示) */
 var motion = 0; /** 模式：0-編輯 1-預覽 */
+var nowMarquee = document.getElementById('marqContent'); /** 現正編輯跑馬燈文字 */
+var marqShow = document.getElementById('marqShow'); /** 跑馬燈文字，編輯/預覽 切換 */
+var marqPosition = document.getElementById('marqPosition'); /** 跑馬燈文字(顯示) */
+var marqPlay; /** 現正播放跑馬燈 */
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
@@ -86,6 +90,11 @@ function play(e) {
         desPosition.innerText = editArray[indexHere].words;
         desShow.style.visibility = 'visible';
     }
+    if (editArray[indexHere].marquee != '') {
+        marqPosition.innerHTML = "<marquee id='marqDisplay' direction='up' scrolldelay='100' scrollamount='1' behavior='scroll' loop=1 >" + editArray[indexHere].marquee + "</marquee>";
+        marqShow.style.visibility = 'visible';
+        marqPlay = document.getElementById('marqDisplay');
+    }
 }
 
 /** 0-暫停/1-播放 → 按鍵轉換、跑馬燈文字、影片(聲音) */
@@ -108,8 +117,11 @@ function stopAll() {
     youtubeSRC = '';
     videoShow.style.visibility = 'hidden';
     player2.stopVideo();
-    desShow.style.visibility = 'hidden';
     desPosition.innerText = '';
+    desShow.style.visibility = 'hidden';
+    marqPosition.innerHTML = '';
+    marqShow.style.visibility = 'hidden';
+
 }
 
 /** 前往網址觀賞 */
@@ -228,6 +240,7 @@ function editIMG(e) {
             nowVoice.value = editArray[i].voice;
             nowVideo.value = editArray[i].video;
             nowDescription.value = editArray[i].words;
+            nowMarquee.value = editArray[i].marquee;
             if (nowVideo.value != '') {
                 videoShow.style.visibility = 'visible';
             }
@@ -235,17 +248,18 @@ function editIMG(e) {
                 desShow.style.visibility = 'visible';
                 desPosition.innerText = editArray[i].words;
             }
+            if (nowMarquee.value != '') {
+                marqShow.style.visibility = 'visible';
+                marqPosition.innerHTML = "<p>" + nowMarquee.value + "</p>";
+            }
             hasValue++;
             nowIndex = i;
             break;
         }
     }
     if (hasValue == 0) {
-        editArray.push({ image: nowIMG, voice: '', video: '', words: '' });
+        editArray.push({ image: nowIMG, voice: '', video: '', words: '', marquee: '' });
         nowIndex = editArray.length - 1;
-        nowVoice.value = '';
-        nowVideo.value = '';
-        nowDescription.value = '';
     }
 }
 
@@ -267,6 +281,8 @@ function checkAll() {
     videoShow.style.visibility = 'hidden';
     desPosition.innerText = '';
     desShow.style.visibility = 'hidden';
+    marqPosition.innerHTML = '';
+    marqShow.style.visibility = 'hidden';
 }
 
 /** 圖案放大，不可大過底圖 */
@@ -355,5 +371,18 @@ function uploadDes() {
         editArray[nowIndex].words = nowDescription.value;
         desPosition.innerText = nowDescription.value;
         desShow.style.visibility = 'visible';
+    }
+}
+
+/** 儲存跑馬燈文字至Array */
+function uploadMarq() {
+    if (nowMarquee.value == '') {
+        editArray[nowIndex].marquee = '';
+        marqPosition.innerHTML = '';
+        marqShow.style.visibility = 'hidden';
+    } else {
+        editArray[nowIndex].marquee = nowMarquee.value;
+        marqPosition.innerHTML = "<p>" + nowMarquee.value + "</p>";
+        marqShow.style.visibility = 'visible';
     }
 }
