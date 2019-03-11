@@ -19,12 +19,8 @@ youtube.style.width = prePosition.offsetWidth + 'px';
 youtube.style.height = prePosition.offsetHeight + 'px';
 var nowDescription = document.getElementById('description'); /** 說明文字(輸入) */
 var desShow = document.getElementById('desShow'); /** 說明文字，編輯/預覽 切換 */
-var desPosition = document.getElementById('desPosition'); /** 編輯說明文字 */
-var nowMarquee = document.getElementById('marqContent'); /** 跑馬燈(輸入) */
-var marqueeShow = document.getElementById('marqueeShow'); /** 跑馬燈，編輯/預覽 切換 */
-var marqPosition = document.getElementById('marqPosition'); /** 編輯跑馬燈 */
-var marqDisplay = document.getElementById('marqDisplay'); /** 預覽跑馬燈 */
-
+var desPosition = document.getElementById('desPosition'); /** 說明文字(顯示) */
+var motion = 0; /** 模式：0-編輯 1-預覽 */
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
@@ -87,12 +83,8 @@ function play(e) {
         player2.playVideo();
     }
     if (editArray[indexHere].words != '') {
-        desShow.style.visibility = 'visible';
         desPosition.innerText = editArray[indexHere].words;
-    }
-    if (editArray[indexHere].marquee != '') {
-        marqueeShow.style.visibility = 'visible';
-        marqPosition.innerText = editArray[indexHere].marquee;
+        desShow.style.visibility = 'visible';
     }
 }
 
@@ -102,12 +94,10 @@ function playPause() {
         document.getElementById('playPause').style.cssText = 'height: 2vw;border-style: solid;border-width: 1vw 0 1vw 1.6vw;border-color: transparent transparent transparent #3C232A;cursor: pointer;margin-right: .5vw;';
         nowStatus = 0;
         player1.pauseVideo();
-        marquee.stop();
     } else if (nowStatus == 0) {
         document.getElementById('playPause').style.cssText = 'width: 2vw;height: 2vw;border-style: double;border-width: 0 0 0 1vw;border-color: #3C232A;cursor: pointer;margin-right: .5vw;';
         nowStatus = 1;
         player1.playVideo();
-        marquee.start();
     }
 }
 
@@ -120,8 +110,6 @@ function stopAll() {
     player2.stopVideo();
     desShow.style.visibility = 'hidden';
     desPosition.innerText = '';
-    marqueeShow.style.visibility = 'hidden';
-    marqPosition.innerHTML = '';
 }
 
 /** 前往網址觀賞 */
@@ -139,57 +127,43 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 function modeChange() {
     if (modeStatus.innerText == '編輯') {
         stopAll();
+        motion = 0;
         modeStatus.innerText = '預覽';
         modeStatus.style.backgroundColor = '#3C232A';
         modeStatus.title = '退出編輯';
         updateBlock.style.visibility = 'visible';
         document.getElementById('playBar').style.visibility = 'hidden';
-        editView(1);
+        editView();
         videoShow.style.visibility = 'hidden';
         prePosition.style.display = 'initial';
         youtube.style.display = 'none';
         desShow.style.visibility = 'hidden';
-        marqueeShow.style.visibility = 'hidden';
     } else if (modeStatus.innerText == '預覽') {
         checkAll();
+        motion = 1;
         modeStatus.innerText = '編輯';
         modeStatus.style.backgroundColor = 'rgba(60, 35, 42, .6)';
         modeStatus.title = '進行編輯';
         updateBlock.style.visibility = 'hidden';
         checkAllIMGs();
         document.getElementById('updateIMG').style.visibility = 'hidden';
-        editView(0);
+        editView();
         videoShow.style.visibility = 'hidden';
         prePosition.style.display = 'none';
         youtube.style.display = 'initial';
         desShow.style.visibility = 'hidden';
-        marqueeShow.style.visibility = 'hidden';
     }
 }
 
 /** 圖案觸發程式切換 */
-function editView(status) {
+function editView() {
     var originEles = document.getElementById("images").innerHTML;
-    var originEles1 = document.getElementById('desShow').innerHTML;
-    var originEles2 = document.getElementById('marqueeShow').innerHTML;
-    if (status == 0) {
-        var newEles = originEles.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
-        newEles = newEles.replace(/onclick="editIMG\(this\)"/g, 'onclick="play(this)"');
-        var newEles1 = originEles1.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
-        newEles1 = newEles1.replace(/class="image" id="desPosition"/g, 'class="" id="desPosition"')
-        var newEles2 = originEles2.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
-        newEles2 = newEles2.replace(/class="image" id="marqDisplay"/g, 'class="" id="marqDisplay"')
-    } else if (status == 1) {
-        var newEles = originEles.replace(/onclick=""/g, 'onclick="draDIV(this)"');
-        newEles = newEles.replace(/onclick="play\(this\)"/g, 'onclick="editIMG(this)"');
-        var newEles1 = originEles1.replace(/onclick=""/g, 'onclick="draDIV(this)"');
-        newEles1 = newEles1.replace(/class="" id="desPosition"/g, 'class="image" id="desPosition"')
-        var newEles2 = originEles2.replace(/onclick=""/g, 'onclick="draDIV(this)"');
-        newEles2 = newEles2.replace(/class="" id="marqDisplay"/g, 'class="image" id="marqDisplay"')
+    if (motion == 1) {
+        var newEles = originEles.replace(/onclick="editIMG\(this\)" title="點一下即可編輯"/g, 'onclick="play(this)" title="點一下即可預覽"');
+    } else if (motion == 0) {
+        var newEles = originEles.replace(/onclick="play\(this\)" title="點一下即可預覽"/g, 'onclick="editIMG(this)" title="點一下即可編輯"');
     }
     document.getElementById("images").innerHTML = newEles;
-    document.getElementById('desShow').innerHTML = newEles1;
-    document.getElementById('marqueeShow').innerHTML = newEles2;
 }
 
 /** 上傳圖片 PHP處理 */
@@ -254,7 +228,6 @@ function editIMG(e) {
             nowVoice.value = editArray[i].voice;
             nowVideo.value = editArray[i].video;
             nowDescription.value = editArray[i].words;
-            nowMarquee.value = editArray[i].marquee;
             if (nowVideo.value != '') {
                 videoShow.style.visibility = 'visible';
             }
@@ -262,22 +235,17 @@ function editIMG(e) {
                 desShow.style.visibility = 'visible';
                 desPosition.innerText = editArray[i].words;
             }
-            if (nowMarquee.value != '') {
-                marqDisplay.innerText = nowMarquee.value;
-                marqueeShow.style.visibility = 'visible';
-            }
             hasValue++;
             nowIndex = i;
             break;
         }
     }
     if (hasValue == 0) {
-        editArray.push({ image: nowIMG, voice: '', video: '', words: '', marquee: '' });
+        editArray.push({ image: nowIMG, voice: '', video: '', words: '' });
         nowIndex = editArray.length - 1;
         nowVoice.value = '';
         nowVideo.value = '';
         nowDescription.value = '';
-        nowMarquee.value = '';
     }
 }
 
@@ -296,12 +264,9 @@ function checkAll() {
     nowVoice.value = '';
     nowVideo.value = '';
     nowDescription.value = '';
-    nowMarquee.value = '';
     videoShow.style.visibility = 'hidden';
     desPosition.innerText = '';
     desShow.style.visibility = 'hidden';
-    marqDisplay.innerText = '';
-    marqueeShow.style.visibility = 'hidden';
 }
 
 /** 圖案放大，不可大過底圖 */
@@ -324,14 +289,16 @@ function draDIV(elmnt) {
     elmnt.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
+        if (motion == 0) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
     }
 
     function elementDrag(e) {
@@ -388,18 +355,5 @@ function uploadDes() {
         editArray[nowIndex].words = nowDescription.value;
         desPosition.innerText = nowDescription.value;
         desShow.style.visibility = 'visible';
-    }
-}
-
-/** 儲存跑馬燈文字至Array */
-function uploadMarq() {
-    if (nowMarquee.value == '') {
-        editArray[nowIndex].marquee = '';
-        marqDisplay.innerText = '';
-        marqueeShow.style.visibility = 'hidden';
-    } else {
-        editArray[nowIndex].marquee = nowMarquee.value;
-        marqDisplay.innerText = nowMarquee.value;
-        marqueeShow.style.visibility = 'visible';
     }
 }
