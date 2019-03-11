@@ -103,7 +103,7 @@ body button:focus {
     position: absolute;
     top: 0;
     left: 0;
-    visibility: visible;
+    visibility: hidden;
 }
 
 #marqPosition {
@@ -111,7 +111,7 @@ body button:focus {
     width: 30vw;
 }
 
-#marquee {
+#marqDisplay {
     position: absolute;
     width: 30vw;
 }

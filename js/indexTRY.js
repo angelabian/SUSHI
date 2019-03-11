@@ -20,10 +20,10 @@ youtube.style.height = prePosition.offsetHeight + 'px';
 var nowDescription = document.getElementById('description'); /** 說明文字(輸入) */
 var desShow = document.getElementById('desShow'); /** 說明文字，編輯/預覽 切換 */
 var desPosition = document.getElementById('desPosition'); /** 編輯說明文字 */
-var nowMarquee = document.getElementById('marqueeDes'); /** 跑馬燈(輸入) */
+var nowMarquee = document.getElementById('marqContent'); /** 跑馬燈(輸入) */
 var marqueeShow = document.getElementById('marqueeShow'); /** 跑馬燈，編輯/預覽 切換 */
 var marqPosition = document.getElementById('marqPosition'); /** 編輯跑馬燈 */
-var marquee = document.getElementById('marquee'); /** 預覽跑馬燈 */
+var marqDisplay = document.getElementById('marqDisplay'); /** 預覽跑馬燈 */
 
 
 // this function gets called when API is ready to use
@@ -91,8 +91,8 @@ function play(e) {
         desPosition.innerText = editArray[indexHere].words;
     }
     if (editArray[indexHere].marquee != '') {
-        marqPosition.innerHTML = "<marquee class='image' id='marquee' direction='up' scrolldelay='100' scrollamount='1' behavior='scroll' loop=1>跑馬燈測試<br>跑馬燈測試<br>" + editArray[indexHere].marquee + "</marquee>";
         marqueeShow.style.visibility = 'visible';
+        marqPosition.innerText = editArray[indexHere].marquee;
     }
 }
 
@@ -151,6 +151,7 @@ function modeChange() {
         desShow.style.visibility = 'hidden';
         marqueeShow.style.visibility = 'hidden';
     } else if (modeStatus.innerText == '預覽') {
+        checkAll();
         modeStatus.innerText = '編輯';
         modeStatus.style.backgroundColor = 'rgba(60, 35, 42, .6)';
         modeStatus.title = '進行編輯';
@@ -162,7 +163,6 @@ function modeChange() {
         prePosition.style.display = 'none';
         youtube.style.display = 'initial';
         desShow.style.visibility = 'hidden';
-        marqPosition.innerHTML = "";
         marqueeShow.style.visibility = 'hidden';
     }
 }
@@ -178,14 +178,14 @@ function editView(status) {
         var newEles1 = originEles1.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
         newEles1 = newEles1.replace(/class="image" id="desPosition"/g, 'class="" id="desPosition"')
         var newEles2 = originEles2.replace(/onclick="draDIV\(this\)"/g, 'onclick=""');
-        newEles2 = newEles2.replace(/class="image" id="marqPosition"/g, 'class="" id="marqPosition"')
+        newEles2 = newEles2.replace(/class="image" id="marqDisplay"/g, 'class="" id="marqDisplay"')
     } else if (status == 1) {
         var newEles = originEles.replace(/onclick=""/g, 'onclick="draDIV(this)"');
         newEles = newEles.replace(/onclick="play\(this\)"/g, 'onclick="editIMG(this)"');
         var newEles1 = originEles1.replace(/onclick=""/g, 'onclick="draDIV(this)"');
         newEles1 = newEles1.replace(/class="" id="desPosition"/g, 'class="image" id="desPosition"')
         var newEles2 = originEles2.replace(/onclick=""/g, 'onclick="draDIV(this)"');
-        newEles2 = newEles2.replace(/class="" id="marqPosition"/g, 'class="image" id="marqPosition"')
+        newEles2 = newEles2.replace(/class="" id="marqDisplay"/g, 'class="image" id="marqDisplay"')
     }
     document.getElementById("images").innerHTML = newEles;
     document.getElementById('desShow').innerHTML = newEles1;
@@ -263,7 +263,7 @@ function editIMG(e) {
                 desPosition.innerText = editArray[i].words;
             }
             if (nowMarquee.value != '') {
-                marqPosition.innerHTML = nowMarquee.value;
+                marqDisplay.innerText = nowMarquee.value;
                 marqueeShow.style.visibility = 'visible';
             }
             hasValue++;
@@ -300,7 +300,7 @@ function checkAll() {
     videoShow.style.visibility = 'hidden';
     desPosition.innerText = '';
     desShow.style.visibility = 'hidden';
-    marqPosition.innerHTML = '';
+    marqDisplay.innerText = '';
     marqueeShow.style.visibility = 'hidden';
 }
 
@@ -395,11 +395,11 @@ function uploadDes() {
 function uploadMarq() {
     if (nowMarquee.value == '') {
         editArray[nowIndex].marquee = '';
-        marqPosition.innerHTML = '';
+        marqDisplay.innerText = '';
         marqueeShow.style.visibility = 'hidden';
     } else {
         editArray[nowIndex].marquee = nowMarquee.value;
-        marqPosition.innerHTML = nowMarquee.value;
+        marqDisplay.innerText = nowMarquee.value;
         marqueeShow.style.visibility = 'visible';
     }
 }
