@@ -101,12 +101,11 @@ body {
     padding-left: 1vw;
 }
 
-/* 體驗鈕 */
+/* 回首頁 */
 
-.toTRY a {
+.toHome a {
     margin: 1vh .5vw;
     padding: .1vh .2vw;
-    border: .1vw solid #3C232A;
     background: transparent;
     color: #3C232A;
     font-size: calc(.5vw + .5vh + 1vmin);
@@ -116,7 +115,7 @@ body {
     cursor: pointer;
 }
 
-.toTRY a:hover {
+.toHome a:hover {
     color: #E8DCC4;
     background: #3C232A;
 }

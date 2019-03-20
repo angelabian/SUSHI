@@ -278,6 +278,26 @@ form {
     display: none;
 }
 
+/* 回首頁 */
+
+.toHome a {
+    margin: 1vh .5vw;
+    padding: .1vh .2vw;
+    background: transparent;
+    color: #3C232A;
+    font-size: calc(.5vw + .5vh + 1vmin);
+    font-family: 華康正顏楷體W5, 標楷體;
+    border-radius: .2vw;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toHome a:hover {
+    color: #E8DCC4;
+    background: #3C232A;
+}
+
+
 /* 頁面尾巴 */
 .pageBottom {
     height: 2vh;
