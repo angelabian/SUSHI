@@ -42,6 +42,7 @@ function onYouTubePlayerAPIReady() {
 /** 點擊圖案，啟動播放 */
 function play(playID) {
     stopAll();
+    document.getElementById('playPause').style.cssText = 'width: 2vw;height: 2vw;border-style: double;border-width: 0 0 0 1vw;border-color: #3C232A;cursor: pointer;margin-right: .5vw;';
     var wishDelay = '85';
     if (document.getElementById('baseIMG').offsetHeight < 485) {
         wishDelay = '130';
